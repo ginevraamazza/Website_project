@@ -122,7 +122,7 @@
 	<iframe style="width: 95vw; height: 70vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0ASELECT%20DISTINCT%20*%0AWHERE%20%7B%0A%20%20%20VALUES%20%3Fmonuments%0A%20%20%20%7B%20wd%3AQ1072853%20wd%3AQ3672313%20wd%3AQ2063557%20wd%3AQ3713399%20wd%3AQ1268593%20%7D%0A%20%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%20%20%7B%20%3Fmonuments%20wdt%3AP1435%20wd%3AQ26971668%20.%20%7D%20%20%23%20we%20add%20this%20%E2%80%9Ccondition%E2%80%9D%20because%20if%20an%20entity%20has%20%0A%09%09%09%09%09%20%20%20%20%20%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP571%20%3Finauguration_date%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP186%20%3Fconstrmaterial%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP149%20%3Farchstyle%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP138%20%3Fnamedafter%20.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%22.%20%7D%0A%20%20FILTER%20(lang(%3Fmonument_name)%20%3D%20%22it%22)%0A%7D%0AORDER%20BY%20%3Fmonument_name" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
     <br>
 	<br>
-	<p> This revealed for example that the Arch of Augustus was lacking all the properties investigated execpt for the eponym, while the Malatestan Temple already had a few. <br><br><strong>IMPORTANT!!</strong> This affirmation was made when we started our project at half of May. On the 14th of June, Clemens Dulcis decided to enrich the 
+	<p> This revealed for example that the Arch of Augustus was lacking all the properties investigated execpt for the eponym, while the Malatestan Temple already had a few. <br><br><strong>!!IMPORTANT!!</strong> This affirmation was made when we started our project at half of May. On the 14th June 2025, Clemens Dulcis decided to enrich the 
 	entity of the Arch by putting the eponym!! In the photo below there is the <strong><a href="https://www.wikidata.org/w/index.php?title=Q1072853&action=history" class="no-underline-link"</a>revision history</a></strong> of the entity of the Arch hat shows the latest modifications to the entity.</p>
 	<div style="text-align: center;">
  <img src="images/photohistory.jpg" width="700">
@@ -161,10 +161,10 @@ PREFIX agent: &lt;https://w3id.org/arco/resource/Agent/&gt; <br>
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; <br>
 <br>
 SELECT * WHERE {<br>
-     ?culturalProperty a arco:HistoricOrArtisticProperty;<br>
-                       a-cd:hasAuthor agent:50f36ef3d01e9761a295106ebbd39de3;<br>
-                       cis:involvesCulturalEntity ?culturalEntity .<br>
-                       rdfs:label ?label<br>
+	?culturalProperty a arco:HistoricOrArtisticProperty;<br>
+                          a-cd:hasAuthor agent:50f36ef3d01e9761a295106ebbd39de3;<br>
+                          cis:involvesCulturalEntity ?culturalEntity .<br>
+                          rdfs:label ?label<br>
 OPTIONAL { ?culturalProperty a-cd:depiction ?depiction } }"<br>
     <tr>
 	</td>
@@ -192,17 +192,17 @@ PREFIX l0: &lt;https://w3id.org/italia/onto/l0/&gt;<br>
 CONSTRUCT {<br>
      ?place a cis:GeographicalFeature; l0:name "Firenze" .<br>
      ?event a cis:CulturalEvent; clv:hasSpatialCoverage ?place; l0:name ?eventName;<br>
-              cis:involvesCulturalEntity ?culturalProperty .<br>
+            cis:involvesCulturalEntity ?culturalProperty .<br>
      ?culturalProperty a-cd:hasAuthor ?author; l0:name ?title .<br>
      ?author l0:name ?authorName<br>
 }<br>
 WHERE {<br>
-     ?place a cis:GeographicalFeature; rdfs:label "Firenze" .<br>
+    ?place a cis:GeographicalFeature; rdfs:label "Firenze" .<br>
     ?event a cis:CulturalEvent; clv:hasSpatialCoverage ?place; rdfs:label ?eventName;<br>
            cis:involvesCulturalEntity ?culturalProperty .<br>
-     ?culturalProperty a-cd:hasAuthor ?author; rdfs:label ?title .<br>
-     ?author rdfs:label ?authorName<br>
-     FILTER(REGEX(?authorName, "andrea del Castagno", "i"))<br>
+    ?culturalProperty a-cd:hasAuthor ?author; rdfs:label ?title .<br>
+    ?author rdfs:label ?authorName<br>
+FILTER(REGEX(?authorName, "andrea del Castagno", "i"))<br>
 }<br>
 <br>
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
@@ -216,12 +216,12 @@ CONSTRUCT {<br>
 }<br>
 WHERE {<br>
      ?event a cis:CulturalEvent;<br>
-              cis:involvesCulturalEntity ?culturalProperty .<br>
+            cis:involvesCulturalEntity ?culturalProperty .<br>
      ?culturalProperty a arco:HistoricOrArtisticProperty;<br>
-              a-cd:hasAuthor ?author;<br>
-              rdfs:label ?title .<br>
+                       a-cd:hasAuthor ?author;<br>
+                       rdfs:label ?title .<br>
      ?author rdfs:label ?authorName .<br>
-     FILTER(REGEX(?authorName, "andrea del Castagno", "i"))<br>
+FILTER(REGEX(?authorName, "andrea del Castagno", "i"))<br>
 }"<br>
 <br></td>
     </tr>
