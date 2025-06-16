@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H: Ponte di Tiberio</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+
+  <main>
+    <br>
+    <br>
+	<h1 id="arch-title" class="anchor-offset">
+		<a href="https://en.wikipedia.org/wiki/Arch_of_Augustus_(Rimini)" target="_blank" rel="noopener noreferrer" class="no-underline-link">
+			Ponte di Tiberio</a>
+	<span class="wd-id">
+		<a href="https://www.wikidata.org/wiki/Q2063557" target="_blank" rel="noopener noreferrer" class="no-underline-link">(ID Wikidata: Q2063557)</a>
+	</span>
+	</h1>
+    <br>
+	<p class="investigato-da"> Investigated by Serena Pascarella </p>
+<div class="internal-nav">
+  <div class="nav-title">Go directly to:</div>
+  <ol> 
+	<li><a href="#why-tiberius">Why the Tiberius Bridge?</a></li>
+    <li><a href="#sparql-gaps">SPARQL queries to detect the gaps</a></li>
+    <li><a href="#llm-section">Use of LLMs to enrich the knowledge graph</a></li>
+	<li><a href="#construct-query">Correct CONSTRUCT query and triples</a></li>
+	</ol>
+</div>
+
+    <br>
+    <img src="images/pon-TiberiusBridge.jpg" alt="Tiberius Bridge" class="centered-image-with-border">
+    <br>
+	<h2 id="why-tiberius" class="anchor-offset">&#127753 Why the Tiberius Bridge?</h2>
+    <br>
+    <p> <strong><a href="https://en.wikipedia.org/wiki/Ponte_di_Tiberio_(Rimini)" class="no-underline-link"</a> The Tiberius Bridge</a></strong> in <strong><a href="https://en.wikipedia.org/wiki/Rimini" class="no-underline-link">Rimini</a></strong> is a Roman bridge constructed between 14 and 21 AD under the reigns of  <strong><a href="https://en.wikipedia.org/wiki/Roman_emperor" class="no-underline-link"> Roman emperors </a></strong><a href="https://en.wikipedia.org/wiki/Augustus"class="no-underline-link">Augustus</a></strong> and <strong><a href="https://en.wikipedia.org/wiki/Tiberius" class="no-underline-link">Tiberius</a></strong>. 
+	The bridge traverses the<strong> <a href=" https://en.wikipedia.org/wiki/Marecchia" class="no-underline-link"</a> Marecchia</a> </strong> port canal at the southern end of two Roman roads, the <strong><a href="https://en.wikipedia.org/wiki/Via_Aemilia" class="no-underline-link">Via Aemilia</a></strong> and the <strong><a href="https://en.wikipedia.org/wiki/Via_Popilia" class="no-underline-link">Via Popilia</a></strong>.
+	The bridge was built to showcase the impressiveness of Roman monumental infrastructure,emphasised by its religious-theological decorative artwork. It is the oldest surviving <strong><a href="https://en.wikipedia.org/wiki/Roman_bridge" class="no-underline-link">Roman bridge</a></strong>  
+	to be decorated with <strong><a href="https://en.wikipedia.org/wiki/Classical_order#Greek_orders" class="no-underline-link"> Greek orders</a></strong>.
+</p>
+    <br>
+	<p> I undertook the following actions to enhance its<strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link"</a> Wikidata</a></strong> documentation, recognizing the importance of keeping it current due to its prominent status as a symbolic monument of Rimini and its significant role in shaping the city's identity and tourism appeal. </p>  
+    <hr class="section-divider">
+	<h2 id="sparql-gaps" class="anchor-offset">&#128269 SPARQL queries to detect the gaps</h2>
+	<br>
+	<h3> SELECT Query </h3>
+	<br>
+	<p> As a preliminary point, I noticed that some properties to be added on the Ponte di Tiberio could be the founder, culture and architectural style.Therefore I used this query with the <strong class="highlighted-strong">DISTINCT</strong> function to ensure that the query results will not contain duplicate rows. Since multiple properties (like ?foundedby, ?culture, or ?architecturalstyle) may have multiple values or combinations, using DISTINCT helps avoid repeated identical rows in the output. Then, the <strong class="highlighted-strong"> FILTER</strong> query,  to restrict the labels of the monument (rdfs:label) to only those written in Italian ("it"). This ensures that the result will return the monument's name only in the desired language. Finally, I used the <strong class="highlighted-strong"> OPTIONAL </strong> query, in oder to  retrieve this additional information about the monument, only if that information is available in Wikidata. If one or more of these properties are missing for the Tiberius Bridge, the query will still return the monument, just with empty values in those fields.
+	</p>
+	
+	<pre class="code-frame"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT <strong>DISTINCT</strong> ?monuments ?monument_name ?foundedby ?culture ?architecturalstyle
+WHERE {
+	VALUES ?monuments
+  { wd:Q2063557 }
+  ?monuments rdfs:label ?monument_name .
+<strong> FILTER</strong> (LANG(?monument_name) = "it") 
+<strong>OPTIONAL</strong>{ ?monuments wdt:P112 ?foundedby. } 
+<strong>OPTIONAL</strong>{ ?monuments wdt:P2596 ?culture. }
+<strong>OPTIONAL</strong>{ ?monuments wdt:P149 ?architecturalstyle. }
+}
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT%20DISTINCT%20%3Fmonuments%20%3Fmonument_name%20%3Ffoundedby%20%3Fculture%20%3Farchitecturalstyle%0AWHERE%20%7B%0AVALUES%20%3Fmonuments%0A%20%20%7B%20wd%3AQ2063557%20%7D%0A%20%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%20%20FILTER(LANG(%3Fmonument_name)%20%3D%20%22it%22)%0AOPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP112%20%3Ffoundedby.%20%7D%20%09%09%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP2596%20%3Fculture.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP149%20%3Farchitecturalstyle.%20%7D%0A%7D%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    <p> By doing so, it appears that the result table lacks information about the founder, culture, and architectural style.</p> 
+    
+	<hr class="section-divider">
+    <h2 id="llm-section" class="anchor-offset">&#129302 Use of <a href="https://en.wikipedia.org/wiki/Large_language_model" style="color: #0A0A2A; text-decoration: none;" onmouseover="this.style.color='darkblue'" onmouseout="this.style.color=''darkblue'" class="no-underline-link"</a>LLMs</a> to enrich the knowledge graph</h2>
+    <br>
+	<p> I consulted  <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong> and <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a> </strong> to help me fill in the missing information, by using the Zero-shot prompt and the Few-shots chain-of-thought prompt with both of them. </p>
+    <h3>Zero-shot prompt </h3>
+	<br>
+	<p> The first question was a zero shot prompt: </p>
+	<p class="my-custom-paragraph">
+	"Hi, I'm looking for some information about the Ponte di Tiberio. Could you please tell me who founded it, its cultural context, and its architectural style? Thank you!" </p>
+	<br>
+	<h4>Chat GPT's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/pon-ChatGPT1.jpg" width="700">
+	<img src="images/pon-ChatGPT2.jpg" width="700">
+	</p>
+    
+	<h4>Deep Seek's answer </h4>
+	<br>
+	<p style="text-align: center;">
+	<img src="images/pon-Deepseek1.jpg" width="700">
+	</p>
+    <br>
+	<p> Both ChatGPT and Deep Seek are quite correct and they spread the same information as on the reliable sources of the monument.
+	<p style="font-size: 0.9em;">
+	 Sources: <strong><a href="https://www.travelemiliaromagna.it/ponte-di-tiberio-rimini/" class="no-underline-link"</a> (https://www.travelemiliaromagna.it/ponte-di-tiberio-rimini/)</a></strong>, <strong><a href="https://www.comune.rimini.it/vivere-il-comune/luoghi/area-archeologica/ponte-di-tiberio" class="no-underline-link"</a> (https://www.comune.rimini.it/vivere-il-comune/luoghi/area-archeologica/ponte-di-tiberio)</a></strong></p> 
+    <br>
+	<h3>Few-shots chain-of-thought prompt </h3>
+	<br>
+    <p> Then, I need to insert some missing triples using a <strong class="highlighted-strong">CONSTRUCT</strong> query, so I requested help from ChatGPT and DeepSeek to build it. By using Few shots chain of thought prompt with both of them. </p>
+	<p> The question was formulated as it follows, giving as examples two queries made to create new triples for the <strong><a href="https://dati.beniculturali.it/arco-rete-ontologie" class="no-underline-link">ArCo knowledge graph</a></strong>: </p>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/pon-ChatGPT3.jpg" width="700">
+    <img src="images/pon-ChatGPT4.jpg" width="700">
+    <img src="images/pon-ChatGPT5.jpg" width="700">
+    <img src="images/pon-ChatGPT6.jpg" width="700">
+    <img src="images/pon-ChatGPT7.jpg" width="700">
+    </p>
+	<h4>Chat GPT's answer</h4>
+    <br>
+	<p>
+	Sure! Let's step through this together. You want a Wikidata SPARQL <strong class="highlighted-strong">CONSTRUCT</strong> query that adds triples to enrich the entity wd:Q2063557 (Ponte di Tiberio) with founder (P112) Augustus (Q1405); culture (P2596) Ancient Rome (Q1747689) and architectural style (P149) Doric order (Q192664).
+And you want it in a style similar to your ArCo knowledge graph examples. <br><br>
+Here is the <strong class="highlighted-strong">CONSTRUCT</strong> query for Wikidata:
+</p>
+<pre class="code-frame"><code>
+PREFIX wd:&lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt:&lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+
+<strong>CONSTRUCT</strong> {
+  wd:Q2063557 a wd:Q12280 ;            # classify as Bridge
+              rdfs:label ?label ;
+              wdt:P112 wd:Q1405 ;                # founder: Augustus
+              wdt:P2596 wd:Q1747689 ;            # culture: Ancient Rome
+              wdt:P149 wd:Q192664 .              # architectural style: Doric order
+}
+WHERE {
+  wd:Q2063557 rdfs:label ?label .
+  FILTER (LANG(?label) = "en")         # get English label for Ponte di Tiberio
+}
+</p>
+	</code></pre>
+    <br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0A%0ACONSTRUCT%20%7B%0A%20%20wd%3AQ2063557%20a%20wd%3AQ12280%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%23%20classify%20as%20Bridge%0A%20%20%20%20rdfs%3Alabel%20%3Flabel%20%3B%0A%20%20%20%20wdt%3AP112%20wd%3AQ1405%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20founder%3A%20Augustus%0A%20%20%20%20wdt%3AP2596%20wd%3AQ1747689%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%23%20culture%3A%20Ancient%20Rome%0A%20%20%20%20wdt%3AP149%20wd%3AQ192664%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20architectural%20style%3A%20Doric%20order%0A%7D%0AWHERE%20%7B%0A%20%20wd%3AQ2063557%20rdfs%3Alabel%20%3Flabel%20.%0A%20%20FILTER%20(LANG(%3Flabel)%20%3D%20%22en%22)%20%20%20%20%20%20%20%20%20%23%20get%20English%20label%20for%20Ponte%20di%20Tiberio%0A%7D%0A%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+	<p> <p style="text-align: center;">
+	<img src="images/arc-chat7.jpg" width="700">
+	</p>
+	<p>
+	The result provided by ChatGPT is correct because the Wikidata Query Service recognizes each ID used. Every entity referenced is valid and exists in the knowledge graph.
+	</p>
+	<br>
+	<h4>Deep Seek's answer</h4>
+	<p> <p style="text-align: center;">
+	<img src="images/pon-Deepseek2.jpg" width="700">
+	</p>
+    <pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX rdfs: http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX cis: http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX a-cd: http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX l0: https://w3id.org/italia/onto/l0/&gt;
+PREFIX clv: http://https://w3id.org/italia/onto/CLV/&gt;
+<br>
+<strong>CONSTRUCT </strong> {
+  # Ponte di Tiberio as CulturalProperty with Wikidata properties
+  wd:Q2063557 a cis:CulturalProperty ;
+              l0:name "Ponte di Tiberio"@en ;
+              wdt:P112 wd:Q1405 ;               # Founded by (Augustus)
+              wdt:P2596 wd:Q1747689 ;           # Culture (Ancient Rome)
+              wdt:P149 wd:Q192664 ;             # Architectural style (Doric order)
+              clv:hasSpatialCoverage wd:Q6414 ; # Located in Rimini
+              a-cd:hasAuthor wd:Q1405 ;         # Augustus as author (ArCo style)
+              a-cd:hasCulturalContext wd:Q1747689 ; # Ancient Roman culture (ArCo)
+              a-cd:hasTechnicalTypology wd:Q192664 . # Doric order (ArCo)
+  
+  # Additional descriptive triples
+  wd:Q1405 l0:name "Augustus"@en ;
+           a a-cd:Author .
+  
+  wd:Q1747689 l0:name "Ancient Rome"@en ;
+              a a-cd:CulturalContext .
+  
+  wd:Q192664 l0:name "Doric order"@en ;
+             a a-cd:TechnicalTypology .
+  
+  wd:Q6414 l0:name "Rimini"@en ;
+          a cis:GeographicalFeature .
+}
+<strong>WHERE</strong>  {
+  # Ensure the items exist
+  wd:Q2063557 wikibase:label ?bridgeLabel .
+  wd:Q1405 wikibase:label ?augustusLabel .
+  wd:Q1747689 wikibase:label ?cultureLabel .
+  wd:Q192664 wikibase:label ?archLabel .
+  wd:Q6414 wikibase:label ?riminiLabel .
+  
+  FILTER(LANG(?bridgeLabel) = "en")
+  FILTER(LANG(?augustusLabel) = "en")
+  FILTER(LANG(?cultureLabel) = "en")
+  FILTER(LANG(?archLabel) = "en")
+  FILTER(LANG(?riminiLabel) = "en")
+}
+
+	</code></pre>
+    <br>
+	<p style="text-align: center;">
+    <img src="images/pon-Deepseek3.jpg" width="700">
+	<p>
+	I requested the same query from Deep Seek; however, the result provided was incorrect because it returned a query using predicates and entities from the ArCo knowledge graph rather than those of Wikidata. Although I specified Wikidata IDs and prefixes in the prompt, since the examples given were based on ArCo data, Deep Seek generated a query incorporating ArCo prefixes. Consequently, the query is not suitable for execution against the Wikidata knowledge graph.<p>
+	
+	<hr class="section-divider">
+
+    <h2 id="construct-query" class="anchor-offset">&#9989 Correct CONSTRUCT query and triples</h2>
+    <br>
+    <p>In conclusion, I choose the query generated by ChatGPT because it is the only accurate one, as each identifier used is recognized by the Wikidata Query Service, indicating that all referenced entities are valid and exist within the knowledge graph. 
+    Let's look at the final result:
+    </p>
+    <iframe style="width: 95vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0A%0ACONSTRUCT%20%7B%0A%20%20wd%3AQ2063557%20a%20wd%3AQ12280%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%23%20classify%20as%20Bridge%0A%20%20%20%20rdfs%3Alabel%20%3Flabel%20%3B%0A%20%20%20%20wdt%3AP112%20wd%3AQ1405%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20founder%3A%20Augustus%0A%20%20%20%20wdt%3AP2596%20wd%3AQ1747689%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%23%20culture%3A%20Ancient%20Rome%0A%20%20%20%20wdt%3AP149%20wd%3AQ192664%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20architectural%20style%3A%20Doric%20order%0A%7D%0AWHERE%20%7B%0A%20%20wd%3AQ2063557%20rdfs%3Alabel%20%3Flabel%20.%0A%20%20FILTER%20(LANG(%3Flabel)%20%3D%20%22en%22)%20%20%20%20%20%20%20%20%20%23%20get%20English%20label%20for%20Ponte%20di%20Tiberio%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+	
+  <p><strong><a href="#arch-title" class="no-underline-link">Get back at the beginning of the page</a></strong></p>
+</div> 
+
+<br>
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover"" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+	
+  </main>
+
+</body>
+</html>

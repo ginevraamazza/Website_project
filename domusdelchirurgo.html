@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H: Domus del Chirurgo</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+
+  <main>
+    <br>
+    <br>
+	<h1 id="arch-title" class="anchor-offset">
+		<a 
+        href="https://it.wikipedia.org/wiki/Domus_del_chirurgo" target="_blank" rel="noopener noreferrer" class="no-underline-link">
+			Domus del Chirurgo</a>
+	<span class="wd-id">
+		<a href="https://www.wikidata.org/wiki/Q3713399" target="_blank" rel="noopener noreferrer" class="no-underline-link">(ID Wikidata: Q3713399)</a>
+	</span>
+	</h1>
+    <br>
+	<p class="investigato-da"> Investigated by Valeria Angeloni </p>
+<div class="internal-nav">
+  <div class="nav-title">Go directly to:</div>
+  <ol> 
+	<li><a href="#why-chirurgo">Why the Domus del Chirurgo?</a></li>
+    <li><a href="#sparql-gaps">SPARQL queries to detect the gaps</a></li>
+    <li><a href="#llm-section">Use of LLMs to enrich the knowledge graph</a></li>
+    <li><a href="#construct-query">Correct CONSTRUCT query and triples</a></li>
+  </ol>
+</div>
+
+    <br>
+    <img src="images/dom-photo.jpg" alt="Domus del Chirurgo" class="centered-image-with-border">
+    <br>
+	<h2 id="why-chirurgo" class="anchor-offset">&#x1F3DB Why the Domus del Chirurgo?</h2>
+    <br>
+    <p> <strong><a href="https://it.wikipedia.org/wiki/Domus_del_chirurgo" class="no-underline-link"</a> The Domus del Chirurgo</a> </strong> in <strong><a href="https://en.wikipedia.org/wiki/Rimini" class="no-underline-link">Rimini</a></strong> is an example of the typical houses <strong><a href="https://en.wikipedia.org/wiki/Domus" class="no-underline-link"> (domus)</a></strong> of the upper classes citizens in <strong><a href="https://en.wikipedia.org/wiki/Ancient_Rome" class="no-underline-link"> Ancient Rome</a></strong>. 
+	The house was discovered in 1989, with all the <strong> <a href=" https://en.wikipedia.org/wiki/Mosaic" class="no-underline-link"</a> mosaics</a> </strong> and <strong> <a href=" https://en.wikipedia.org/wiki/Fresco" class="no-underline-link"</a> frescoes</a> </strong> inside, all dating back to ancient Roman times.
+ The domus takes its name from the utensils that were found inside, made from <strong><a href=" https://en.wikipedia.org/wiki/Bronze" class="no-underline-link"</a>bronze</a></strong> and <strong><a href="https://en.wikipedia.org/wiki/Iron" class="no-underline-link"</a>iron</a></strong>, and used by doctors to perform surgeries ("chirurgo" means "surgeon" in Italian).
+   
+The collection of surgical instruments found inside counts up to 150 utensils, which makes it the richest surgical collection dating back to ancient times in the whole world. 
+Examples of the utensils found inside are <strong> <a href="https://en.wikipedia.org/wiki/Scalpel" class="no-underline-link"</a>scalpels</a></strong>,<strong> <a href="https://en.wikipedia.org/wiki/Pliers" class="no-underline-link"</a>pliers</a> </strong> and <strong> <a href="https://en.wikipedia.org/wiki/Chisel" class="no-underline-link"</a>chisels</a></strong>.  
+
+</p>
+    <br>
+	<p> I decided to enrich its entity on <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link"</a>Wikidata</a></strong> because I think it represents a unique monument, at the same level of the most famous landmarks of ancient Rome - such as the <strong> <a href="https://en.wikipedia.org/wiki/Colosseum" class="no-underline-link"</a>Colosseum</a> </strong> or the <strong><a href="https://en.wikipedia.org/wiki/Domus_Aurea" class="no-underline-link"</a>Domus Aurea</a></strong>. 
+    
+</p>  
+    <hr class="section-divider">
+	<h2 id="sparql-gaps" class="anchor-offset">&#128269 SPARQL queries to detect the gaps</h2>
+	<br>
+	<h3> DESCRIBE Query </h3>
+	<br>
+	<p> Firstly, I used this query with the <strong class="highlighted-strong">DESCRIBE</strong> function to see the properties and objects describing the Domus del Chirurgo monument and, eventually, find any gaps.
+    </p>
+	
+	<pre class="code-frame"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+<strong>DESCRIBE</strong> wd:Q3713399
+WHERE {
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+}
+<strong>LIMIT</strong> 100
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20bd%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%23%3E%0APREFIX%20wikibase%3A%20%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0ADESCRIBE%20wd%3AQ3713399%0AWHERE%20%7B%0A%09SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%0A%7D%0ALIMIT%20100" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    <p> Through this query, I looked at all the properties used to define the monument. Moreover, in order to have a similar monument to compare it with, I used a similar query to investigate the Colosseum and find properties that could apply to the Domus del Chirurgo. Here is the query: 
+    
+     </p>
+	
+	<pre class="code-frame"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+<strong>DESCRIBE</strong> wd:Q10285
+WHERE {
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+}
+<strong>LIMIT</strong> 100
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20bd%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%23%3E%0APREFIX%20wikibase%3A%20%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0ADESCRIBE%20wd%3AQ10285%0AWHERE%20%7B%0A%09SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%0A%7D%0ALIMIT%20100" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    
+    <p>
+   This comparison helped me understand which parts of the Domus are well described and similar to the Colosseum. Moreover, it helped me see which information is missing and can be added. 
+   </p>
+<br>
+    <h3> SELECT Query </h3>
+	<br>
+	<p>   
+   In the following query, I use the <strong class="highlighted-strong">OPTIONAL</strong> function in order to check if the information is actually missing from the Domus del Chirurgo profile on Wikidata. 
+    </p>
+    <pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+<strong>SELECT</strong> <strong>DISTINCT</strong> ?monuments ?monument_name ?use ?style ?date ?instance ?part
+WHERE {
+VALUES ?monuments
+ { wd:Q3713399 }
+ ?monuments rdfs:label ?monument_name .
+ <strong>FILTER</strong>(LANG(?monument_name) = "it")
+ <strong>OPTIONAL</strong> { ?monuments wdt:P366 ?use. }      # I look for the description of the use
+ <strong>OPTIONAL</strong> { ?monuments wdt:P1619 ?date. }    # I look for the date of official opening
+ <strong>OPTIONAL</strong> { ?monuments wdt:P31 ?instance. }  # I look for the description of what the monument is instance of
+ <strong>OPTIONAL</strong> { ?monuments wdt:P361 ?part. }     # I look for other entities which are part of the monument
+  }
+}
+	</code></pre>
+    <br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT%20DISTINCT%20%3Fmonuments%20%3Fmonument_name%20%3Farea%20%3Fuse%20%3Fdate%20%3Finstance%20%3Fpart%0AWHERE%20%7B%0AVALUES%20%3Fmonuments%0A%20%20%7B%20wd%3A%20wd%3AQ3713399%7D%0A%20%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%20%20FILTER%28LANG%28%3Fmonument_name%29%20%3D%20%22it%22%29%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP366%20%3Fuse.%20%7D%20%09%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP1619%20%3Fdate.%20%7D%20%09%09%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP31%20%3Finstance.%20%7D%20%09%0AOPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP361%20%3Fpart%20.%20%7D%20%09%0A%20%20%7D%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+	<p> Looking at the results, I notice that information regarding date of official opening and contained parts are <strong>missing</strong>, and decide to add them. Moreover, I notice I can enrich the properties of "instance of" and "has use", by adding respectively the entities "roman ruins" and "tourist attraction". These two entities were found in the description of the Colosseum, and I think they are <strong>relevant</strong> and can be applied to my monument, too. Therefore, I decide to enrich the profile by adding also these two.
+    
+    </p>
+ 
+	<hr class="section-divider">
+    <h2 id="llm-section" class="anchor-offset">&#129302 Use of <a href="https://en.wikipedia.org/wiki/Large_language_model" style="color: #0A0A2A; text-decoration: none;" onmouseover="this.style.color='darkblue'" onmouseout="this.style.color=''darkblue'" class="no-underline-link"</a>LLMs</a> to enrich the knowledge graph</h2>
+    <br>
+    <p> I look for missing information about date of official opening and contained parts in the 
+     <strong><a href="https://www.domusrimini.com/" class="no-underline-link"</a>official website of the monument</a></strong>. I find that: </p>
+   <p>   - the date of official opening is 2007; </p>
+   <p>  - a part contained in the domus is the "Cucchiaio di Diocle". </p>
+ <p>   I then proceed to enrich the knowledge graph through the newly found information.
+    </p>
+	<p> I asked <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong> to help me create the new query using <strong class="highlighted-strong">CONSTRUCT</strong>. I gave all informations about namespaces and properties to the LLM, and I used a zero-shot chain-of-thought technique. </p>
+    <p> Then, I gave the exact same prompt to <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>DeepSeek</a></strong> and compared the answers. </p>
+    <h3>Zero-shot chain of thought prompt </h3>
+	<br>
+   <p> My prompt was: </p>
+	<p class="my-custom-paragraph">
+	You are given the following ontology terms from wikidata: 
+<br>
+<br>
+ - date of official opening: wdt:P1619 (property that links monument to the official date of its opening); <br>
+ - has use: wdt:P366 (property linking a monument to its use); <br>
+- is instance of: wdt:P31 (property linking the monument to an instance it represents); <br>
+- part of: wdt:P527 (property linking the monument to the artwork contained in the monument itself); <br> 
+ - tourist attraction: wd:Q570116 (entity that represents a tourist attraction); <br>
+ - roman ruins: wd:Q133444874 (entity that represents roman ruins); <br>
+ - the id for the Domus del Chirurgo monument in Rimini:  wd:Q3713399. <br> <br>
+ Write one single SPARQL query with CONSTRUCT, in order to construct the following triples (structure s-p-o): <br>
+ - domus del chirurgo-date of official opening-2007; <br>
+ - domus del chirurgo-has use-tourist attraction; <br>
+ - domus del chirurgo-is instance of-roman ruins; <br>
+ -domus del chirurgo-part of-“Cucchiaio di Diocle”. <br> <br>
+ Let’s think step by step." </p>
+</p>
+	<br>
+	<h4>Chat GPT's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/dom-chatgpt-1.jpg" width="700">
+   <pre class="code-frame" style="max-width: 1000px;"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+<strong>CONSTRUCT {</strong> 
+?monument wdt:P1619 ?openingDate .
+?monument wdt:P366 ?use .
+?monument wdt:P31 ?instance .
+?monument wdt:P527 ?partOf .
+}
+<strong>WHERE { </strong>
+	BIND(wd:Q3713399 AS ?monument)
+  BIND("2007"^^xsd:gYear AS ?openingDate)          # date of official opening
+  BIND(wd:Q570116 AS ?use)                         # tourist attraction
+  BIND(wd:Q133444874 AS ?instance)                 # roman ruins
+  BIND("Cucchiaio di Diocle" AS ?partOf)           # part contained in the monument.
+
+}
+
+	</code></pre>
+   <p>
+		
+    
+    <p style="text-align: center;">
+	<img src="images/dom-chatgpt-2.jpg" width="700"> </p>
+<br>	<p> <a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ACONSTRUCT%20%7B%0A%20%20%3Fmonument%20wdt%3AP1619%20%3FopeningDate%20.%0A%20%20%3Fmonument%20wdt%3AP366%20%3Fuse%20.%0A%20%20%3Fmonument%20wdt%3AP31%20%3Finstance%20.%0A%20%20%3Fmonument%20wdt%3AP527%20%3FpartOf%20.%0A%7D%0AWHERE%20%7B%0A%20%20BIND(wd%3AQ3713399%20AS%20%3Fmonument)%0A%20%20BIND(%222007%22%5E%5Exsd%3AgYear%20AS%20%3FopeningDate)%0A%20%20BIND(wd%3AQ570116%20AS%20%3Fuse)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(wd%3AQ133444874%20AS%20%3Finstance)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(%22Cucchiaio%20di%20Diocle%22%20AS%20%3FpartOf)%0A%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a> </p>
+	
+    <br>
+      
+    <h4> DeepSeek's answer </h4>
+    <br>
+	<p style="text-align: center;">
+    <img src="images/dom-deepseek-1.jpg" width="700">
+    <br>
+    <p style="text-align: center;">
+    <img src="images/dom-deepseek-2.jpg" width="700">
+    <br>    
+   <pre class="code-frame" style="max-width: 700px;"><code>
+<strong>CONSTRUCT</strong> {
+wd:Q3713399 wdt:P1619 "2007" ;
+            wdt:P366 wd:Q570116 ;
+            wdt:P31 wd:Q133444874 ;
+            wdt:P527 "Cucchiaio di Diocle" .
+}
+<strong>WHERE</strong> {
+  # No conditions needed since we're constructing new triples
+  # without checking existing data
+  BIND(wd:Q3713399 AS ?domus)
+}
+</code> </pre>
+<br>
+<p>
+<p style="text-align: center;">
+    <img src="images/dom-deepseek-3.jpg" width="700"> </p>
+   
+    <br>	<p> <a href="https://query.wikidata.org/embed.html#CONSTRUCT%20%7B%0A%20%20wd%3AQ3713399%20wdt%3AP1619%20%222007%22%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP366%20wd%3AQ570116%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP31%20wd%3AQ133444874%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP527%20%22Cucchiaio%20di%20Diocle%22%20.%0A%7D%0AWHERE%20%7B%0A%20%0A%20%20BIND%28wd%3AQ3713399%20AS%20%3Fdomus%29%0A%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a> </p>
+
+<p>
+The results of the query are the same, but looking at the answers the LLMs gave me, there are some interesting things to notice. The most noticeable difference between the two LLMs is that Chat GPT gave me a complete query, together with correct prefixes and a much detailed <strong class="highlighted-strong">WHERE</strong> part.
+</p>
+<p>
+On the other hand, DeepSeek did not give any prefix, meaning that I would have to add them to the query in order for it to be meaningful. 
+However, DeepSeek simplified the structure of the query and constructed triples without using the variable <strong>?monument</strong>, which could be seen as useless considering that the prompt contains the Wikidata ID of the monument (wd:Q3713399).  
+</p>
+<br>
+<p>Overall, I did not notice any mistake in prefixes or namespaces, so I would say that the LLMs I tested were efficient for my task, also considering the risks of the zero-shots technique.</p>
+    
+	    <hr class="section-divider">
+
+    <h2 id="construct-query" class="anchor-offset">&#9989 Correct CONSTRUCT query and triples</h2>
+    <br>
+    <p>In conclusion, Chat GPT's answer was the most complete and precise, and I decided to use it and run it in Wikidata's SPARQL endpoint. Let's look again at the final results: 
+	</code></pre>
+    <br>
+	<p>
+	Here are the <strong>final results</strong> with some well constructed triples:
+	</p>
+	<iframe style="width: 95vw; height: 40vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ACONSTRUCT%20%7B%0A%20%20%3Fmonument%20wdt%3AP1619%20%3FopeningDate%20.%0A%20%20%3Fmonument%20wdt%3AP366%20%3Fuse%20.%0A%20%20%3Fmonument%20wdt%3AP31%20%3Finstance%20.%0A%20%20%3Fmonument%20wdt%3AP527%20%3FpartOf%20.%0A%7D%0AWHERE%20%7B%0A%20%20BIND(wd%3AQ3713399%20AS%20%3Fmonument)%0A%20%20BIND(%222007%22%5E%5Exsd%3AgYear%20AS%20%3FopeningDate)%0A%20%20BIND(wd%3AQ570116%20AS%20%3Fuse)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(wd%3AQ133444874%20AS%20%3Finstance)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(%22Cucchiaio%20di%20Diocle%22%20AS%20%3FpartOf)%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+<br>
+
+<div class="internal-nav-1">
+  <p><a href="#arch-title" class="no-underline-link">Get back at the beginning of the page</a></p>
+</div> 
+
+<br>
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover"" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+	
+  </main>
+
+</body>
+</html>

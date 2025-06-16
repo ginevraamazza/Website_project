@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H: Tempio Malatestiano</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+
+  <main>
+    <br>
+    <br>
+	<h1 id="arch-title" class="anchor-offset">
+		<a href="https://en.wikipedia.org/wiki/Arch_of_Augustus_(Rimini)" target="_blank" rel="noopener noreferrer" class="no-underline-link">
+			Tempio Malatestiano</a>
+	<span class="wd-id">
+		<a href="https://www.wikidata.org/wiki/Q1268593" target="_blank" rel="noopener noreferrer" class="no-underline-link">(ID Wikidata: Q1268593)</a>
+	</span>
+	</h1>
+    <br>
+	<p class="investigato-da"> Investigated by Francesca Zanellato </p>
+<div class="internal-nav">
+  <div class="nav-title">Go directly to:</div>
+  <ol> 
+	<li><a href="#why-augustus">Why the Malatesta Temple?</a></li>
+    <li><a href="#sparql-gaps">SPARQL queries to detect the gaps</a></li>
+    <li><a href="#llm-section">Use of LLMs to enrich the knowledge graph</a></li>
+    <li><a href="#construct-query">Correct CONSTRUCT query and triples</a></li>
+  </ol>
+</div>
+
+    <br>
+    <img src="images/tem-photo.jpg" alt="Tempio Malatestiano" class="centered-image-with-border">
+    <br>
+	<h2 id="why-augustus" class="anchor-offset">&#x1F3DB Why the Malatesta Temple?</h2>
+    <br>
+    <p>
+	<strong><a href="https://en.wikipedia.org/wiki/Tempio_Malatestiano" class="no-underline-link">The Malatesta Temple</a></strong> in 
+	<strong><a href="https://en.wikipedia.org/wiki/Rimini" class="no-underline-link">Rimini</a></strong> was originally built in the 13th century. Its renovation was later commissioned in the 15th century by 
+	<strong><a href="https://en.wikipedia.org/wiki/Sigismondo_Pandolfo_Malatesta" class="no-underline-link">Sigismondo Pandolfo Malatesta</a></strong>, the city's lord, who entrusted architect 
+	<strong><a href="https://en.wikipedia.org/wiki/Leon_Battista_Alberti" class="no-underline-link">Leon Battista Alberti</a></strong> with the redesign. The temple combines Gothic and classical elements and features important artworks by 
+	<strong><a href="https://en.wikipedia.org/wiki/Piero_della_Francesca" class="no-underline-link">Piero della Francesca</a></strong>, 
+	<strong><a href="https://en.wikipedia.org/wiki/Giotto" class="no-underline-link">Giotto</a></strong>, and 
+	<strong><a href="https://en.wikipedia.org/wiki/Agostino_di_Duccio" class="no-underline-link">Agostino di Duccio</a></strong>. It also serves as the mausoleum for the 
+	<strong><a href="https://it.wikipedia.org/wiki/Malatesta" class="no-underline-link">Malatesta family</a></strong>, symbolizing their power and legacy.
+	Located in the heart of Rimini, the temple is a key cultural landmark showcasing the city's rich history and artistic heritage.
+</p>
+    <br>
+	<p> Keeping the Malatesta Temple's <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link">Wikidata</a></strong> entry accurate and complete is essential to ensure that reliable information is available across platforms. As one of Rimini's most significant historical and cultural sites, it deserves proper digital representation to support both cultural preservation and global visibility.
+</p>
+    <hr class="section-divider">
+	<h2 id="sparql-gaps" class="anchor-offset">&#128269 SPARQL queries to detect the gaps</h2>
+	<br>
+	<h3> DESCRIBE Query </h3>
+	<br>
+	<p>To begin with, I used the <strong class="highlighted-strong">DESCRIBE</strong> function to examine the properties and objects related to the Malatesta Temple. 
+	This helped me assess how thoroughly it is already described and identify any missing information.</p>
+	
+	<pre class="code-frame"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+<strong>DESCRIBE</strong> wd:Q1268593
+WHERE {
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+}
+<strong>LIMIT</strong> 100
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20bd%3A%20%3Chttp%3A%2F%2Fwww.bigdata.com%2Frdf%23%3E%0APREFIX%20wikibase%3A%20%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0ADESCRIBE%20wd%3AQ1268593%0AWHERE%20%7B%0A%09SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%0A%7D%0ALIMIT%20100" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	</p>
+    <p> By doing so, I realize that the Malatesta Temple is already extensively described in Wikidata, but some important properties may still be missing. 
+	The most frequently occurring ones relate to: place of burial, names and variants, such as native labels or alternative names, artistic associations or affiliations with artworks and cultural topics.
+	However, additional relevant properties, beyond the missing ones already identified in the <a href="sparqlqueries.html#previous-query" class="no-underline-link">previous general query</a>, could be added or further specified to enrich the Wikidata entry for the temple. 
+	These include its current use, significant historical events associated with it, and the components that constitute the temple, such as artworks and architectural features.
+    <br>
+    <h3> SELECT Query </h3>
+	<br>
+	<p> Therefore, I proceed with a <strong class="highlighted-strong">SELECT</strong> query, employing the <strong class="highlighted-strong">OPTIONAL</strong> clause to investigate potentially missing or incomplete properties in the knowledge graph.
+	Specifically, I included the temple's current use, significant historical events associated with it, and its components, such as artworks and architectural features, 
+	alongside previously identified properties that required correction or enhancement.</p>
+    <pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+<strong>SELECT</strong> <strong>DISTINCT</strong> ?monuments ?monument_name 
+		?material ?use ?event (YEAR(?eventDate) AS ?event_year) ?part
+WHERE {
+VALUES ?monuments
+ { wd:Q1268593 } #Tempio Malatestiano
+ ?monuments rdfs:label ?monument_name .
+ <strong>FILTER</strong>(LANG(?monument_name) = "it")
+ <strong>OPTIONAL</strong> { ?monuments wdt:P186 ?materialentity. }    		 # Material
+ <strong>OPTIONAL</strong> { ?monuments wdt:P366 ?use_entity. }    		 # Use
+ <strong>OPTIONAL</strong> { 
+        ?monuments p:P793 ?eventStatement.    
+	?eventStatement ps:P793 ?event_entity. 			
+<strong>OPTIONAL</strong> { ?eventStatement pq:P585 ?eventDate. }	         # Significant event
+	  }
+ <strong>OPTIONAL</strong> { ?monuments wdt:P527 ?part_entity. }        		 # Has part
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,it" .
+    ?material_entity rdfs:label ?material .
+    ?use_entity rdfs:label ?use .
+    ?event_entity rdfs:label ?event .
+    ?part_entity rdfs:label ?part .
+  }
+}
+<strong>ORDER BY</strong> ?event_year ?part
+	</code></pre>
+    <br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT%20DISTINCT%20%3Fmonuments%20%3Fmonument_name%20%0A%09%09%3Fmaterial%20%3Fuse%20%3Fevent%20(YEAR(%3FeventDate)%20AS%20%3Fevent_year)%20%3Fpart%0AWHERE%20%7B%0AVALUES%20%3Fmonuments%0A%20%7B%20wd%3AQ1268593%20%7D%20%23Tempio%20Malatestiano%0A%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%20FILTER(LANG(%3Fmonument_name)%20%3D%20%22it%22)%0A%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP186%20%3Fmaterialentity.%20%7D%20%20%20%20%09%09%23%20Material%0A%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP366%20%3Fuse_entity.%20%7D%20%20%20%20%09%09%23%20Use%0A%20OPTIONAL%20%7B%20%0A%09%20%20%3Fmonuments%20p%3AP793%20%3FeventStatement.%20%20%20%20%0A%09%20%20%3FeventStatement%20ps%3AP793%20%3Fevent_entity.%20%09%09%09%0A%09%20%20OPTIONAL%20%7B%20%3FeventStatement%20pq%3AP585%20%3FeventDate.%20%7D%09%20%20%23%20Significant%20event%0A%09%20%20%7D%0A%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP527%20%3Fpart_entity.%20%7D%20%20%20%20%20%20%20%20%20%09%23%20Has%20part%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22%20.%0A%20%20%20%20%3Fmaterial_entity%20rdfs%3Alabel%20%3Fmaterial%20.%0A%20%20%20%20%3Fuse_entity%20rdfs%3Alabel%20%3Fuse%20.%0A%20%20%20%20%3Fevent_entity%20rdfs%3Alabel%20%3Fevent%20.%0A%20%20%20%20%3Fpart_entity%20rdfs%3Alabel%20%3Fpart%20.%0A%20%20%7D%0A%7D%0AORDER%20BY%20%3Fevent_year%20%3Fpart" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	</p>
+	<p> From the results, I realize that there are several properties that should be specified in order to make the Wikidata entry for the Malatesta Temple complete and accurate.
+	<hr class="section-divider">
+    <h2 id="llm-section" class="anchor-offset">&#129302 Use of <a href="https://en.wikipedia.org/wiki/Large_language_model" style="color: #0A0A2A; text-decoration: none;" onmouseover="this.style.color='darkblue'" onmouseout="this.style.color=''darkblue'" class="no-underline-link"</a>LLMs</a> to enrich the knowledge graph</h2>
+    <br>
+	<p> I asked <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini " class="no-underline-link"</a>Gemini</a> </strong> to help me with the missing information and compared their outcomes.  </p>
+    <h3>Zero-shot prompt </h3>
+	<br>
+	<p> The first question was a zero shot prompt: </p>
+	<p class="my-custom-paragraph">
+	"Hi! I'm looking for missing information to complete the Wikidata page of the Tempio Malatestiano in Rimini. 
+	The missing details are: the material it is made of and its use. Could you help me? " </p>
+	<br>
+	<h4>Chat GPT's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/tem-chatGPT_1.jpg" width="700">
+	</p>
+    <br>
+	<p> ChatGPT provides a very concise and minimally detailed response. </p>
+	<br>
+	<h4>Gemini's answer</h4>
+	<br>
+	<p style="text-align: center;">
+	<img src="images/tem-gemini1_1.jpg" width="700">
+	<img src="images/tem-gemini2_1.jpg" width="700">
+	<img src="images/tem-gemini3_1.jpg" width="700">
+	</p>
+	<p> Gemini provides a more complete and thorough response. </p>	
+    <p> It is now clear that the temple serves multiple purposes: it is at once a place of worship, a mausoleum, and a tourist attraction. 
+	What remains somewhat unclear is the predominant material used in its construction. I therefore ask the chatbot for clarification. 
+	<br>
+	<p class="my-custom-paragraph">
+	Among the materials mentioned, which one most accurately defines the monument?</p>
+	<br>
+	<h4>Gemini's answer</h4>
+	<p>
+	<img src="images/tem-gemini4_1.jpg"width="700"> </p>
+	<p> Some researches on reliable sources confirmed that the material is 'pietra d'Istria' and that the temple serves multiple uses </p>
+	<p style="font-size: 0.9em;">
+  Sources:
+  <strong><a href="https://riminiturismo.it/cosa-vedere/arte-e-cultura/chiese-pievi-battisteri/tempio-malatestiano#:~:text=L'intera%20costruzione%20poggia%20su,con%20il%20fiore%20di%20Isotta." class="no-underline-link">Website of Rimini Turism</a></strong>;
+  <strong><a href="https://www.arteopereartisti.it/tempio-malatestiano/"class="no-underline-link">Arte, Opere, Artisti. Per la scuola secondaria di secondo grado</a></strong>.  
+	</p> 
+	<br>
+	<p> &#8594 N.B. It is essential to <strong>verify</strong> information coming from LLMs. </p>
+	<br>
+	<p>
+	For the remaining missing information, I decided to follow a different approach. This is because I was already aware of certain facts about the temple thanks to my previous research, and I specifically chose to query these properties to check whether they were also present in <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link">Wikidata</a></strong>.
+	For example, from my preliminary research, particularly on the official <strong><a href="https://en.wikipedia.org/wiki/Tempio_Malatestiano#Destruction_and_restoration' class='no-underline-link"class="no-underline-link">Wikipedia page</a></strong>, I already knew that the temple had suffered significant damage during <strong><a href="https://en.wikipedia.org/wiki/World_War_II" class="no-underline-link">World War II</a></strong>.
+	As for the artworks housed inside the temple, I first discovered them during my initial  <strong class="highlighted-strong">DESCRIBE</strong> query. In that data, several works by renowned artists were listed as being located in the Tempio Malatestiano. 
+	However, in those triples, the temple appeared only as the object, indicating the location of the artworks, not the subject.
+	As a result, these connections do not show up directly on the <strong><a href="https://www.wikidata.org/wiki/Q1268593"class="no-underline-link">Temple's Wikidata page</a></strong>. 
+	The goal is making this relationship explicit by linking the artworks to the temple using the property <strong>'has part'</strong>, so they are clearly recognized as integral elements of the site.</p>
+	<br>
+	<p> I ask LLMs to help me retrieve all the artworks that are located in the Malatesta Temple. </p>
+    <br>
+	<h3>One-shot prompt </h3>
+	<p class="my-custom-paragraph">
+	"Hi! I'm looking to retrieve all the artworks located in the Malatesta Temple from Wikidata. Could you help me write a SPARQL query for that?
+	For reference, here's an example of a similar query in ArCo knowledge graph, 
+	the main difference is that I am interested in artworks connected to a specific location rather than to a specific author.
+	<br>
+    <br>
+	<span style="font-family: Consolas, 'Courier New', Courier, monospace; font-size: 0.8em;">
+	PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; 
+	<br>
+	PREFIX arco: &lt;https://w3id.org/arco/ontology/arco/&gt; 
+	<br>
+	PREFIX a-cd: &lt;https://w3id.org/arco/ontology/context-description/&gt;
+	<br>
+	PREFIX agent: &lt;https://w3id.org/arco/resource/Agent/&gt;
+	<br>
+	PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+	<br>
+	<br>
+	SELECT *
+	WHERE {
+    <br>	
+ &nbsp;&nbsp;&nbsp;&nbsp; ?culturalProperty a arco:HistoricOrArtisticProperty; 
+      <br>	  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  a-cd:hasAuthor agent:50f36ef3d01e9761a295106ebbd39de3;  
+      <br>	  
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cis:involvesCulturalEntity ?culturalEntity .
+      <br>								   
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rdfs:label ?label
+      <br>	  
+    OPTIONAL { ?culturalProperty a-cd:depiction ?depiction }
+}  	 
+	<br>
+	 </p>
+	 </code></pre>
+    <br>
+	<h4>Chat GPT's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/tem-chatGPT1_1.jpg" width="700">
+    <img src="images/tem-chatGPT2_1.jpg" width="700">
+	<img src="images/tem-chatGPT3_1.jpg" width="700">
+	
+	<pre class="code-frame" style="max-width: 900px; max-height: 350px;"><code>
+	<strong>SELECT</strong> ?artwork ?artworkLabel WHERE {
+		?artwork wdt:P31/wdt:P279* wd:Q838948 .
+	<strong>VALUES</strong> ?location <s>{ wd:Q351395 }</s> <strong><span style="color:green;">{ wd:Q1268593 } </span></strong>
+	{
+		?artwork wdt:P276 ?location .
+	}
+	<strong>UNION</strong>
+	{
+		?artwork wdt:P131 ?location .
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+	}
+	 </p>
+	 </code></pre>
+	 
+	 <p style="text-align: center;">
+	<img src="images/tem-chatGPT4_1.jpg" width="700">
+	</p>
+    <br>
+	<p> ChatGPT initially suggested an incorrect Wikidata ID for the Tempio Malatestiano (Q1268593). 
+	The query is concise yet effective, particularly due to the use of the UNION operator between the two properties, which increases the chances of retrieving relevant results. 
+	After manually correcting the ID, the query results became satisfactory and complete. </p>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#SELECT%20%3Fartwork%20%3FartworkLabel%20WHERE%20%7B%0A%09%09%3Fartwork%20wdt%3AP31%2Fwdt%3AP279*%20wd%3AQ838948%20.%0A%09VALUES%20%3Flocation%20%7B%20wd%3AQ1268593%20%7D%0A%09%7B%0A%09%09%3Fartwork%20wdt%3AP276%20%3Flocation%20.%0A%09%7D%0A%09UNION%0A%09%7B%0A%09%09%3Fartwork%20wdt%3AP131%20%3Flocation%20.%0A%09%7D%0A%09SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%09%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	</p>
+	<br>
+	<h4>Gemini's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/tem-gemini5_1.jpg" width="700">
+	<pre class="code-frame" style="max-width: 900px; max-height: 800px;"><code>
+	<strong>PREFIX</strong> wd: &lt;http://www.wikidata.org/entity/&gt;
+	<strong>PREFIX</strong> wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+	<strong>PREFIX</strong> rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+	<strong>PREFIX</strong> schema: &lt;http://schema.org/&gt;
+	<strong>SELECT DISTINCT</strong> ?artwork ?artworkLabel ?instanceOfLabel ?depiction
+	<strong>WHERE</strong> {
+	# Malatesta Temple (Q1268593)
+	<strong>BIND</strong>(wd:Q1268593 AS ?malatestaTemple)
+	# Find items located at the Malatesta Temple
+		?artwork wdt:P276 ?malatestaTemple .
+		# Filter for instances of art forms (painting, sculpture, fresco, etc.)
+		# P31: instance of
+		# P279: subclass of
+	?artwork wdt:P31/wdt:P279* ?instanceOf .
+	<strong>VALUES</strong> ?instanceOf {
+		wd:Q3305213   		# painting
+		wd:Q860861    		# sculpture
+		wd:Q125191    <s>		# fresco</s> <strong><span style="color:green;">photography</span></strong>
+		wd:Q17537576  		# artwork
+		<s>wd:Q24300306</s> <strong><span style="color:green;">wd:Q93184</span></strong>  # drawing (art)
+		<s>wd:Q188981</s> <strong><span style="color:green;">wd:Q11060274</span></strong> # print (art)
+		<s>wd:Q21527712</s> <strong><span style="color:green;">wd:Q101687</span></strong> # altarpiece
+		}
+	# Get the label for the artwork and its instance type in English
+	SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+		?artwork rdfs:label ?artworkLabel .
+		?instanceOf rdfs:label ?instanceOfLabel .
+		}
+	# Optional: get an image depiction of the artwork
+	<strong>OPTIONAL</strong> { ?artwork wdt:P18 ?depiction . }
+	}
+	<strong>ORDER BY</strong> ?artworkLabel
+	</p>
+	 </code></pre>
+	 <p style="text-align: center;">
+	<img src="images/tem-gemini8_1.jpg" width="700">
+	<p> Gemini provides a more detailed explanation and a broader query. However, some values are incorrect. 
+	For example: wd:Q125191 refers to photography, not fresco; wd:Q24300306, intended to represent drawing (art), actually corresponds to a protein, the correct ID for drawing is wd:Q93184; 
+	wd:Q188981 was used for print (art), but the appropriate ID is wd:Q11060274; and while wd:Q21527712 was used for altarpiece, the accurate value should be wd:Q101687.
+	Once these values are corrected, the results are equivalent to those returned by the query proposed by ChatGPT. 
+	I also added <strong class="highlighted-strong">DISTINCT</strong> after <strong class="highlighted-strong">SELECT</strong> in order to avoid duplicates. However, some results still appear multiple times because the same artwork is to several different 'InstanceOf' labels. 
+	Aside from these duplicates, the output remains consistent.</p>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0A%09PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0A%09PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0A%09PREFIX%20schema%3A%20%3Chttp%3A%2F%2Fschema.org%2F%3E%0A%09SELECT%20DISTINCT%20%3Fartwork%20%3FartworkLabel%20%3FinstanceOfLabel%20%3Fdepiction%0A%09WHERE%20%7B%0A%09%23%20Malatesta%20Temple%20(Q1268593)%0A%09BIND(wd%3AQ1268593%20AS%20%3FmalatestaTemple)%0A%09%23%20Find%20items%20located%20at%20the%20Malatesta%20Temple%0A%09%09%3Fartwork%20wdt%3AP276%20%3FmalatestaTemple%20.%0A%09%09%23%20Filter%20for%20instances%20of%20art%20forms%20(painting%2C%20sculpture%2C%20fresco%2C%20etc.)%0A%09%09%23%20P31%3A%20instance%20of%0A%09%09%23%20P279%3A%20subclass%20of%0A%09%3Fartwork%20wdt%3AP31%2Fwdt%3AP279*%20%3FinstanceOf%20.%0A%09VALUES%20%3FinstanceOf%20%7B%0A%09%09wd%3AQ3305213%20%20%20%23%20painting%0A%09%09wd%3AQ860861%20%20%20%20%23%20sculpture%0A%09%09wd%3AQ125191%20%20%20%20%23%20fresco%0A%09%09wd%3AQ17537576%20%20%23%20artwork%0A%09%09wd%3AQ93184%20%20%23%20drawing%20(art)%0A%09%09wd%3AQ11060274%20%20%20%23%20print%20(art)%0A%09%09wd%3AQ101687%20%23%20altarpiece%0A%09%09%7D%0A%09%23%20Get%20the%20label%20for%20the%20artwork%20and%20its%20instance%20type%20in%20English%0A%09SERVICE%20wikibase%3Alabel%20%7B%0A%09%09bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%0A%09%09%3Fartwork%20rdfs%3Alabel%20%3FartworkLabel%20.%0A%09%09%3FinstanceOf%20rdfs%3Alabel%20%3FinstanceOfLabel%20.%0A%09%09%7D%0A%09%23%20Optional%3A%20get%20an%20image%20depiction%20of%20the%20artwork%0A%09OPTIONAL%20%7B%20%3Fartwork%20wdt%3AP18%20%3Fdepiction%20.%20%7D%0A%09%7D%0A%09ORDER%20BY%20%3FartworkLabel" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	</p>
+	<br>
+	<p> With all the missing information now collected, I am ready to proceed with the construction of the new triples. </p>
+	<br>
+	<h3>Zero-shot chain-of-thought prompt </h3>
+	<br>
+    <p> I ask ChatGPT and Gemini to help me generate a <strong class="highlighted-strong">CONSTRUCT</strong> query through a zero-shot chain-of-thought prompt in which I explicitly provided all the missing information I had retrieved in the previous steps. </p>
+	<p class="my-custom-paragraph">
+	"Hi, I need to enrich the entity wd:Q1268593 (Tempio Malatestiano) in the Wikidata knowledge graph with some new triples. I noticed that in the page various things are missing such as:
+<br>
+- the material, which is Pietra d'Istria (Q1401767);
+<br>
+- the use, which is structure of worship (Q1370598), mausoleum (Q162875)), tourist attraction (Q570116);
+<br>
+- the artworks that are part of the temple such as: Crocifisso di Rimini (Q3005517), Monumento funebre di Sigismondo Pandolfo Malatesta (Q117745501), Sigismondo Pandolfo Malatesta in preghiera davanti a san Sigismondo (Q3960322) ;
+<br>
+- the significant event, which corresponds to a property damage (Q554774) occurred during WW2, in particular in 1944 .
+<br>
+<br>
+Can you create a CONSTRUCT query for Wikidata with all this information? Let's think STEP-BY-STEP!" 
+ </p>
+	<br>
+	<h4>Chat GPT's answer</h4>
+	<p> <p style="text-align: center;">
+	<img src="images/tem-chatGPT5_1.jpg" width="700">
+	<img src="images/tem-chatGPT6_1.jpg" width="700">
+	<img src="images/tem-chatGPT7_1.jpg" width="700">
+	<pre class="code-frame" style="max-width: 1000px;"><code>
+	<strong>CONSTRUCT</strong> {
+	wd:Q1268593 wdt:P186 wd:Q1401767 ;                      	# material: Pietra d'Istria
+                   wdt:P366 wd:Q1370598 , wd:Q162875 , wd:Q570116 ;  	# use
+                   wdt:P527 wd:Q3005517 , wd:Q117745501 , wd:Q3960322 ; # artworks
+                   wdt:P793 wd:Q554774 .                 		# significant event: property damage
+	wd:Q554774 wdt:P585 "1944-01-01T00:00:00Z"^^xsd:dateTime .  	# point in time of the damage
+	}
+	<strong>WHERE</strong> {
+	<strong>BIND</strong>(wd:Q1268593 AS ?temple)
+	<br>
+	# Material
+	<strong>BIND</strong>(wd:Q1401767 AS ?material)
+	<br>
+	# Use
+	<strong>BIND</strong>(wd:Q1370598 AS ?worship)
+	<strong>BIND</strong>(wd:Q162875 AS ?mausoleum)
+	<strong>BIND</strong>(wd:Q570116 AS ?tourist)
+	<br>
+	# Artworks
+	<strong>BIND</strong>(wd:Q3005517 AS ?art1)
+	<strong>BIND</strong>(wd:Q117745501 AS ?art2)
+	<strong>BIND</strong>(wd:Q3960322 AS ?art3)
+	<br>
+	# Event
+	<strong>BIND</strong>(wd:Q554774 AS ?event)
+	}
+	</code></pre>
+	<p style="text-align: center;">
+	<img src="images/tem-chatGPT9_1.jpg" width="700">
+	</p>
+	<p> ChatGPT's response is clear and complete. 
+	This query uses direct properties (wdt:) in order to add simple triples. In the <strong class="highlighted-strong">WHERE</strong> clause it binds constants. 
+	The event property uses wdt:P793 with a simple triple, but the time qualifier is given separately for the event entity.
+	Running the query produces all the new triples we want to create, neatly organized in subject-predicate-object order, with all the data accurate and correctly formatted.</p>
+	<p> <p style="text-align: left;">
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#CONSTRUCT%20%7B%0A%09wd%3AQ1268593%20wdt%3AP186%20wd%3AQ1401767%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%23%20material%3A%20Pietra%20d'Istria%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP366%20wd%3AQ1370598%20%2C%20wd%3AQ162875%20%2C%20wd%3AQ570116%20%3B%20%20%09%23%20use%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP527%20wd%3AQ3005517%20%2C%20wd%3AQ117745501%20%2C%20wd%3AQ3960322%20%3B%20%23%20artworks%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP793%20wd%3AQ554774%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%23%20significant%20event%3A%20property%20damage%0A%09wd%3AQ554774%20wdt%3AP585%20%221944-01-01T00%3A00%3A00Z%22%5E%5Exsd%3AdateTime%20.%20%20%09%23%20point%20in%20time%20of%20the%20damage%0A%09%7D%0A%09WHERE%20%7B%0A%09BIND(wd%3AQ1268593%20AS%20%3Ftemple)%0A%09%0A%0A%09%23%20Material%0A%09BIND(wd%3AQ1401767%20AS%20%3Fmaterial)%0A%09%0A%0A%09%23%20Use%0A%09BIND(wd%3AQ1370598%20AS%20%3Fworship)%0A%09BIND(wd%3AQ162875%20AS%20%3Fmausoleum)%0A%09BIND(wd%3AQ570116%20AS%20%3Ftourist)%0A%09%0A%0A%09%23%20Artworks%0A%09BIND(wd%3AQ3005517%20AS%20%3Fart1)%0A%09BIND(wd%3AQ117745501%20AS%20%3Fart2)%0A%09BIND(wd%3AQ3960322%20AS%20%3Fart3)%0A%09%0A%0A%09%23%20Event%0A%09BIND(wd%3AQ554774%20AS%20%3Fevent)%0A%09%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	</p>
+	<br>
+	<h4>Gemini's answer</h4>
+	<p> <p style="text-align: center;">
+	<img src="images/tem-gem1_1.jpg" width="700">
+	<img src="images/tem-gem2_1.jpg" width="700">
+	<img src="images/tem-gem3_1.jpg" width="700">
+	<pre class="code-frame" style="max-width: 900px;"><code>
+	<strong>PREFIX</strong> wd: &lt;http://www.wikidata.org/entity/&gt;
+	<strong>PREFIX</strong> p: &lt;http://www.wikidata.org/prop/&gt;
+	<strong>PREFIX</strong> ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+	<strong>PREFIX</strong> pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+	<strong>PREFIX</strong> xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+	<strong>CONSTRUCT</strong> {
+	wd:Q1268593 p:P186 wd:Q1401767 .
+	wd:Q1268593 p:P366 wd:Q1370598 .
+	wd:Q1268593 p:P366 wd:Q162875 .
+	wd:Q1268593 p:P366 wd:Q570116 .
+	wd:Q1268593 <s>p:P4639</s> <strong><span style="color:green;">p:P527</span></strong> wd:Q3005517 .
+	wd:Q1268593 <s>p:P4639</s> <strong><span style="color:green;">p:P527</span></strong> wd:Q117745501 .
+	wd:Q1268593 <s>p:P4639</s> <strong><span style="color:green;">p:P527</span></strong> wd:Q3960322 .
+	wd:Q1268593 p:P793 [
+		ps:P793 wd:Q554774 ;
+		pq:P585 "1944-00-00T00:00:00Z"^^xsd:dateTime ;
+	] .
+	} <strong>WHERE</strong> {
+	# This WHERE clause is minimal for a CONSTRUCT query that just adds new triples.
+	# It ensures the query runs, but doesn't filter existing data.
+	# In a real-world scenario, you might add a WHERE clause to check for the existence
+	# of the entity or other conditions.
+	<strong>VALUES</strong> (?entity) { (wd:Q1268593) }
+	}
+	</code></pre>
+	<br>
+	</p>
+	<br>
+	<p> Gemini provides a complete <strong class="highlighted-strong">CONSTRUCT</strong> query, although it is somewhat more repetitive in the query body compared to the one proposed by ChatGPT. 
+	However, for the <strong class="highlighted-strong">WHERE</strong> clause, Gemini uses a minimal pattern since it focuses on constructing new triples, unlike ChatGPT's query, which has a more extensive <strong class="highlighted-strong">WHERE</strong> clause. 
+	The properties are stated using property statements (p:). For the significant event P793, the event is modeled as a blank node with the statement (ps:P793 wd:Q554774) and a qualifier pq:P585 for the time. 
+	This leads to a more detailed modeling of qualifiers on statements.
+	However, the query from Gemini contains an incorrect property ID for 'has part' (P527); it mistakenly uses P4639. 
+	After correcting this, the results become satisfactory. </p>
+	<br>
+	</code></pre>
+    <br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0A%09PREFIX%20p%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2F%3E%0A%09PREFIX%20ps%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fstatement%2F%3E%0A%09PREFIX%20pq%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fqualifier%2F%3E%0A%09PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%09CONSTRUCT%20%7B%0A%09wd%3AQ1268593%20p%3AP186%20wd%3AQ1401767%20.%0A%09wd%3AQ1268593%20p%3AP366%20wd%3AQ1370598%20.%0A%09wd%3AQ1268593%20p%3AP366%20wd%3AQ162875%20.%0A%09wd%3AQ1268593%20p%3AP366%20wd%3AQ570116%20.%0A%09wd%3AQ1268593%20p%3AP527%20wd%3AQ3005517%20.%0A%09wd%3AQ1268593%20p%3AP527%20wd%3AQ117745501%20.%0A%09wd%3AQ1268593%20p%3AP527%20wd%3AQ3960322%20.%0A%09wd%3AQ1268593%20p%3AP793%20%5B%0A%09%09ps%3AP793%20wd%3AQ554774%20%3B%0A%09%09pq%3AP585%20%221944-00-00T00%3A00%3A00Z%22%5E%5Exsd%3AdateTime%20%3B%0A%09%5D%20.%0A%09%7D%20WHERE%20%7B%0A%09%23%20This%20WHERE%20clause%20is%20minimal%20for%20a%20CONSTRUCT%20query%20that%20just%20adds%20new%20triples.%0A%09%23%20It%20ensures%20the%20query%20runs%2C%20but%20doesn't%20filter%20existing%20data.%0A%09%23%20In%20a%20real-world%20scenario%2C%20you%20might%20add%20a%20WHERE%20clause%20to%20check%20for%20the%20existence%0A%09%23%20of%20the%20entity%20or%20other%20conditions.%0A%09VALUES%20(%3Fentity)%20%7B%20(wd%3AQ1268593)%20%7D%0A%09%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		🔗 Let's see the results
+		</a>
+	
+
+    <hr class="section-divider">
+
+    <h2 id="construct-query" class="anchor-offset">&#9989 Correct CONSTRUCT query and triples</h2>
+    <br>
+    <p>In conclusion, LLMs can be a great help in identifying gaps and missing information. However, it is <strong>ALWAYS</strong> necessary to <strong>verify</strong> the information given by chatbots. 
+	In fact, it has emerged that they often confuse Wikidata IDs, which can lead to incorrect queries. 
+	Nevertheless, they provide a solid starting point for the work and valuable support in the research process. 
+	Here is the final <strong class="highlighted-strong">CONSTRUCT</strong> query:
+    <br>
+	<pre class="code-frame" style="max-width: 1050px;"><code>
+	<strong>PREFIX</strong> wd: &lt;http://www.wikidata.org/entity/&gt;
+	<strong>PREFIX</strong> wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+	<strong>PREFIX</strong> p: &lt;http://www.wikidata.org/prop/&gt;
+	<strong>PREFIX</strong> ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+	<strong>PREFIX</strong> pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+	<strong>PREFIX</strong> xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; 
+
+	<strong>CONSTRUCT</strong> {
+
+	# Material
+	wd:Q1268593 wdt:P186 wd:Q1401767 .    # pietra d'Istria
+
+	# Uses
+	wd:Q1268593 wdt:P366 wd:Q1370598 .    # place of worship
+	wd:Q1268593 wdt:P366 wd:Q162875 .     # mausoleum
+	wd:Q1268593 wdt:P366 wd:Q570116 .     # tourist attraction
+
+	# Artworks > part of the Temple
+	wd:Q1268593 wdt:P527 wd:Q3005517 .    # artwork 1 (Crocifisso di Rimini)
+	wd:Q1268593 wdt:P527 wd:Q117745501 .  # artwork 2 (Monumento funebre di Sigismondo Pandolfo Malatesta)
+	wd:Q1268593 wdt:P527 wd:Q3960322 .    # artwork 3 (Sigismondo Malatesta in preghiera davanti a San Sigismondo)
+
+	# Significant event on temple
+	wd:Q1268593 wdt:P793 wd:Q554774 .     # event: damage
+	
+	#Date of the event 
+	wd:Q554774 wdt:P585 "1944-01-01T00:00:00Z"^^xsd:dateTime 
+	}
+	
+	<strong>WHERE</strong> {
+	<strong>VALUES</strong> (?temple ?material ?worship ?mausoleum ?tourist ?art1 ?art2 ?art3 ?event ?eventDate) {
+		(
+		  wd:Q1268593 
+		  wd:Q1401767 
+		  wd:Q1370598 
+		  wd:Q162875 
+		  wd:Q570116 
+		  wd:Q3005517 
+		  wd:Q117745501 
+		  wd:Q3960322 
+		  wd:Q554774 
+		  "1944-01-01T00:00:00Z"^^xsd:dateTime
+		)
+	    }
+	}
+	</code></pre>
+    <br>
+	<p>
+	Here are the <strong>final results</strong> with some well constructed triples:
+	</p>
+	<div style="text-align: center;">
+	<iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0A%09PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0A%09PREFIX%20p%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2F%3E%0A%09PREFIX%20ps%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fstatement%2F%3E%0A%09PREFIX%20pq%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fqualifier%2F%3E%0A%09PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20%0A%0A%09CONSTRUCT%20%7B%0A%0A%09%23%20Material%0A%09wd%3AQ1268593%20wdt%3AP186%20wd%3AQ1401767%20.%20%09%09%09%20%20%20%23%20pietra%20d'Istria%0A%0A%0A%09%23%20Uses%0A%09wd%3AQ1268593%20wdt%3AP366%20wd%3AQ1370598%20.%09%09%09%20%20%20%23%20place%20of%20worship%0A%09wd%3AQ1268593%20wdt%3AP366%20wd%3AQ162875%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%20%20%20%23%20mausoleum%0A%09wd%3AQ1268593%20wdt%3AP366%20wd%3AQ570116%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%20%20%20%23%20tourist%20attraction%0A%0A%09%23%20Artworks%20%3E%20part%20of%20the%20Temple%0A%09wd%3AQ1268593%20wdt%3AP527%20wd%3AQ3005517%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20artwork%201%20(Crocifisso%20di%20Rimini)%0A%09wd%3AQ1268593%20wdt%3AP527%20wd%3AQ117745501%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20artwork%202%20(Monumento%20funebre%20di%20Sigismondo%20Pandolfo%20Malatesta)%0A%09wd%3AQ1268593%20wdt%3AP527%20wd%3AQ3960322%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20artwork%203%20(Sigismondo%20Pandolfo%20Malatesta%20in%20preghiera%20davanti%20a%20San%20Sigismondo)%0A%0A%0A%0A%09%23%20Significant%20event%20on%20temple%0A%09wd%3AQ1268593%20wdt%3AP793%20wd%3AQ554774%20.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20event%3A%20damage%0A%09%0A%09%23Date%20of%20the%20event%20%0A%09wd%3AQ554774%20wdt%3AP585%20%221944-01-01T00%3A00%3A00Z%22%5E%5Exsd%3AdateTime%20%0A%09%7D%0A%09%0A%09WHERE%20%7B%0A%09VALUES%20(%3Ftemple%20%3Fmaterial%20%3Fworship%20%3Fmausoleum%20%3Ftourist%20%3Fart1%20%3Fart2%20%3Fart3%20%3Fevent%20%3FeventDate)%20%7B%0A%09%09(%0A%09%09%20%20wd%3AQ1268593%20%0A%09%09%20%20wd%3AQ1401767%20%0A%09%09%20%20wd%3AQ1370598%20%0A%09%09%20%20wd%3AQ162875%20%0A%09%09%20%20wd%3AQ570116%20%0A%09%09%20%20wd%3AQ3005517%20%0A%09%09%20%20wd%3AQ117745501%20%0A%09%09%20%20wd%3AQ3960322%20%0A%09%09%20%20wd%3AQ554774%20%0A%09%09%20%20%221944-01-01T00%3A00%3A00Z%22%5E%5Exsd%3AdateTime%0A%09%09)%0A%09%20%20%20%20%7D%0A%09%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+</div>
+<br>
+
+<div class="internal-nav-1">
+  <p><a href="#arch-title" class="no-underline-link">Get back at the beginning of the page</a></p>
+</div> 
+
+<br>
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover"" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+	
+  </main>
+
+</body>
+</html>

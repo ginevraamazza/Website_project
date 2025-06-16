@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H: Chiesa di Sant'Agostino</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+
+  <main>
+    <br>
+    <br>
+	<h1 id="arch-title" class="anchor-offset">
+		<a href="https://it.wikipedia.org/wiki/Chiesa_di_Sant%27Agostino_(Rimini)" target="_blank" rel="noopener noreferrer" class="no-underline-link">
+			Chiesa di Sant'Agostino</a>
+	<span class="wd-id">
+		<a href="https://www.wikidata.org/wiki/Q3672313" target="_blank" rel="noopener noreferrer" class="no-underline-link">(ID Wikidata: Q3672313)</a>
+	</span>
+	</h1>
+    <br>
+	<p class="investigato-da"> Investigated by Rebecca Antonuccio</p>
+<div class="internal-nav">
+  <div class="nav-title">Go directly to:</div>
+  <ol> 
+	<li><a href="#why-augustus">Why Saint Augustine's Church?</a></li>
+    <li><a href="#sparql-gaps">SPARQL queries to detect the gaps</a></li>
+    <li><a href="#llm-section">Use of LLMs to enrich the knowledge graph</a></li>
+    <li><a href="#construct-query">Correct CONSTRUCT query and triples</a></li>
+  </ol>
+</div>
+
+    <br>
+    <img src="images/chi-photo.jpg" alt="Chiesa di Sant'Agostino" class="centered-image-with-border">
+    <br>
+	<h2 id="why-augustus" class="anchor-offset">&#9962 Why Saint Augustine's Church?</h2>
+    <br>
+    <p> <strong><a href="https://en.wikipedia.org/wiki/Sant%27Agostino,_Rimini" class="no-underline-link"</a> Saint Augustine's Church</a> </strong> in <strong><a href="https://en.wikipedia.org/wiki/Rimini" class="no-underline-link">Rimini</a></strong> is a <strong><a href
+="https://en.wikipedia.org/wiki/Romanesque_architecture" class="no-underline-link">Romanesque</a></strong><strong><a href
+="https://en.wikipedia.org/wiki/Gothic_architecture" class="no-underline-link">-Gothic</a></strong>-style <strong><a href
+="https://en.wikipedia.org/wiki/Roman_Catholic" class="no-underline-link">Roman Catholic</a></strong> church, 
+	built during the XIII Century. 
+	It is the oldest Church in Rimini and it was originally dedicated to <strong> <a href=" https://en.wikipedia.org/wiki/John_the_Apostle" class="no-underline-link"</a> John the Apostle</a> </strong> it was erected by the Hermits of Saint Augustine and has always been known by the people as the Church of Saint Augustine. The first historical record of this church is a deed of donation from 1069. At the time, it was a small <strong><a href="https://en.wikipedia.org/wiki/Oratory_(worship)" class="no-underline-link">oratory</a></strong> that served as a <strong><a href="https://en.wikipedia.org/wiki/Parish" class="no-underline-link">parish</a></strong> under the title of Saint John the Evangelist. In 1256, the small building was entrusted to the Order of <strong><a href="https://en.wikipedia.org/wiki/Augustinians" class="no-underline-link">Augustinian Friars</a></strong>.   
+</p>
+    <br>
+	<p> I decided to enrich the entity of the Saint Augustine's Church to improve the accuracy, completeness, and semantic quality of its structured data on <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link"</a> Wikidata</a></strong>. Given its historical significance and cultural relevance, this intervention supports not only digital heritage preservation but also enhances interoperability within linked open data frameworks, making the entity more valuable for information retrieval, knowledge representation, and academic research. </p>  
+    <hr class="section-divider">
+	<h2 id="sparql-gaps" class="anchor-offset">&#128269 SPARQL queries to detect the gaps</h2>
+	<br>
+	<h3> DESCRIBE Query </h3>
+	<br>
+	<p> First of all, I used this query with the <strong class="highlighted-strong">DESCRIBE</strong> function to retrieve data about Saint Augustine's Church. 
+	I found it useful to see if it is already well described or not, and to see which properties may be missing. </p>
+	
+	<pre class="code-frame"><code>
+    <strong>DESCRIBE</strong> wd:Q3672313
+
+WHERE {
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
+}
+
+LIMIT 30
+	</code></pre>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#%0ADESCRIBE%20wd%3AQ3672313%0A%0AWHERE%20%7B%0A%09SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%0A%7D%0A%0ALIMIT%2030%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    <p> By doing so, I noticed that some of the most important properties the entity already has involve to whom it's dedicated, its location, a picture, its website, after whom it is named, and its heritage designation. 
+	Nevertheless, some other interesting properties other than those already noticed can be added, such as the architectural style or the inception of the Church.
+    </p> 
+    <br>
+    <h3> SELECT Query </h3>
+	<br>
+	<p> Therefore, I proceded with a <strong class="highlighted-strong">SELECT</strong> query, using the <strong class="highlighted-strong">OPTIONAL</strong> function to see the properties worth describing that
+	can be missing from the knowledge graph. 
+    </p>
+    <pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+<strong>SELECT</strong> ?churchLabel ?namedAfterLabel ?website ?architecturalStyleLabel ?inception ?heritageDesignationLabel ?dedicatedToLabel 
+<strong>WHERE</strong> {
+  BIND(wd:Q3672313 AS ?church)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". } # Preferisce l'italiano, poi l'inglese
+  <strong>OPTIONAL</strong> { ?church wdt:P138 ?namedAfter. } # prende il nome da
+  <strong>OPTIONAL</strong> { ?church wdt:P973 ?website. } # sito web ufficiale
+  <strong>OPTIONAL</strong> { ?church wdt:P149 ?architecturalStyle. } # stile architettonico
+  <strong>OPTIONAL</strong> { ?church wdt:P571 ?inception. } # data di inizio (quando è stata costruita)
+  <strong>OPTIONAL</strong> { ?church wdt:P1435 ?heritageDesignation. } # designazione del patrimonio
+  <strong>OPTIONAL</strong> { ?church wdt:P825 ?dedicatedTo. } # dedicata a
+}
+
+	</code></pre>
+    <br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#SELECT%20%3FchurchLabel%20%3FnamedAfterLabel%20%3Fwebsite%20%3FarchitecturalStyleLabel%20%3Finception%20%3FheritageDesignationLabel%20%3FdedicatedToLabel%20%0AWHERE%20%7B%0A%20%20BIND%28wd%3AQ3672313%20AS%20%3Fchurch%29%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%20%23%20Preferisce%20l'italiano%2C%20poi%20l'inglese%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP138%20%3FnamedAfter.%20%7D%20%23%20prende%20il%20nome%20da%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP973%20%3Fwebsite.%20%7D%20%23%20sito%20web%20ufficiale%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP149%20%3FarchitecturalStyle.%20%7D%20%23%20stile%20architettonico%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP571%20%3Finception.%20%7D%20%23%20data%20di%20inizio%20%28quando%20%C3%A8%20stata%20costruita%29%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%20%23%20designazione%20del%20patrimonio%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP825%20%3FdedicatedTo.%20%7D%20%23%20dedicata%20a%0A%7D%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+	<p> From the table of results, I noticed that these two pieces of information are indeed <strong>missing</strong>. Therefore, I want to enrich the knowledge graph. </p>
+	<hr class="section-divider">
+    <h2 id="llm-section" class="anchor-offset">&#129302Use of <a href="https://en.wikipedia.org/wiki/Large_language_model" style="color: #0A0A2A; text-decoration: none;" onmouseover="this.style.color='darkblue'" onmouseout="this.style.color=''darkblue'" class="no-underline-link"</a>LLMs</a> to enrich the knowledge graph</h2>
+    <br>
+	<p> I asked <strong><a href="https://gemini.google.com/app?hl=itGemini " class="no-underline-link"</a>Gemini</a> </strong> (with a zero shot prompt) to help me write a query to investigate the entity “Chiesa di Sant’Agostino”. </p>
+    <h3>Zero-shot prompt </h3>
+	<br>
+	<p> The first question was a zero shot prompt: </p>
+	<p class="my-custom-paragraph">
+	"Let's create a query to investigate the Wikidata entity wd:Q3672313 (Saint Augustine's Church in Rimini). I'm interested in finding: who it's named after, if it has a website, what architectural style it's built in, when it was built, its heritage designation, and to whom it is dedicated." </p>
+	<br>
+	<h4>Gemini's answer </h4>
+	<br>
+	<p style="text-align: center;">
+    <img src="images/chi-gem1.jpg" width="700">
+		</p>
+    <p>
+		<a href="https://query.wikidata.org/embed.html#SELECT%20%3FchurchLabel%20%3FnamedAfterLabel%20%3Fwebsite%20%3FarchitecturalStyleLabel%20%3Finception%20%3FheritageDesignationLabel%20%3FdedicatedToLabel%20WHERE%20%7B%0A%20%20BIND%28wd%3AQ3672313%20AS%20%3Fchurch%29%20%23%20Binds%20the%20specific%20entity%20to%20a%20variable%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22.%20%7D%20%23%20Prioritizes%20English%20labels%2C%20then%20Italian%0A%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP138%20%3FnamedAfter.%20%7D%20%20%20%20%20%20%20%20%20%23%20P138%3A%20named%20after%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP856%20%3Fwebsite.%20%7D%20%20%20%20%20%20%20%20%20%20%20%20%23%20P856%3A%20official%20website%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP149%20%3FarchitecturalStyle.%20%7D%20%23%20P149%3A%20architectural%20style%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP571%20%3Finception.%20%7D%20%20%20%20%20%20%20%20%20%23%20P571%3A%20inception%20%28when%20it%20was%20built%29%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%20%23%20P1435%3A%20heritage%20designation%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP144%20%3FdedicatedTo.%20%7D%20%20%20%20%20%20%20%23%20P144%3A%20dedicated%20to%0A%7D" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		馃敆 Let's see the results
+		</a>
+	</p>
+    <br>
+	<p> The results that it gave though were partially wrong (the predicates for “official website” and “dedicated to”) and that's the reason why these two results are missing. So, I looked for the right predicates on wikidata and I adjusted the <strong><a href="https://query.wikidata.org/embed.html#SELECT%20%3FchurchLabel%20%3FnamedAfterLabel%20%3Fwebsite%20%3FarchitecturalStyleLabel%20%3Finception%20%3FheritageDesignationLabel%20%3FdedicatedToLabel%20%0AWHERE%20%7B%0A%20%20BIND%28wd%3AQ3672313%20AS%20%3Fchurch%29%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%2Cen%22.%20%7D%20%23%20Preferisce%20l'italiano%2C%20poi%20l'inglese%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP138%20%3FnamedAfter.%20%7D%20%23%20prende%20il%20nome%20da%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP973%20%3Fwebsite.%20%7D%20%23%20sito%20web%20ufficiale%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP149%20%3FarchitecturalStyle.%20%7D%20%23%20stile%20architettonico%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP571%20%3Finception.%20%7D%20%23%20data%20di%20inizio%20%28quando%20%C3%A8%20stata%20costruita%29%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%20%23%20designazione%20del%20patrimonio%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP825%20%3FdedicatedTo.%20%7D%20%23%20dedicata%20a%0A%7D%0A" class="no-underline-link"</a> query</a></strong>. According to Gemini, the predicate for "official website" is <strong>"P856"</strong>, but it actually is <strong><a href="https://www.wikidata.org/wiki/Property:P973" class="no-underline-link"</a> "P973"</a></strong>. It made the same mistake with the predicate for "dedicated to", it gave <strong>"P144"</strong> but it's actually <strong><a href="https://www.wikidata.org/wiki/Property:P825" class="no-underline-link"</a> "P825"</a></strong>.</p>
+    <h3>Few-shots prompt </h3>
+	<br>
+    <p> I then decided to add this information in Wikidata through a <strong class="highlighted-strong">CONSTRUCT</strong> query. 
+	Therefore, I asked Gemini to help me create a <strong class="highlighted-strong">CONSTRUCT</strong> query through a few-shots prompt. </p>
+	<p> The question was formulated as it follows, giving as examples two queries made to create new triples for the <strong><a href="https://dati.beniculturali.it/arco-rete-ontologie" class="no-underline-link">ArCo knowledge graph </a></strong>: </p>
+	
+	<p class="my-custom-paragraph">
+	"The query results don't include the construction date and architectural style. So, let's build new triples considering that: the architectural style is 'Gothic-Romanesque' (Q1896616) and the church was built in the 13th century (Q7049).
+<br>
+Let's follow these exemples:
+<br>
+<p style="text-align: center;">
+    <img src="images/chi-es1.jpg" width="700">
+	<img src="images/chi-es2.jpg" width="700">
+	</p>
+	<br>
+	<h4>Gemini's answer</h4>
+	<p> <p style="text-align: center;">
+	<img src="images/chi-gem2.jpg" width="700">
+	<img src="images/chi-gem3.jpg" width="700">
+	</p>
+	<p> <p style="text-align: left;">
+</code></pre>
+    Then I created the new triples with <strong class="highlighted-strong">CONSTRUCT</strong>.
+	<p>
+	<pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX wd: http://www.wikidata.org/entity/
+PREFIX wdt: http://www.wikidata.org/prop/direct/
+<br>
+<strong>CONSTRUCT</strong> {
+  wd:Q3672313 wdt:P571 wd:Q7049 .
+  wd:Q3672313 wdt:P149 wd:Q1896616 .
+}
+WHERE {
+  BIND(wd:Q3672313 AS ?chiesa)
+  BIND(wd:Q7049 AS ?secoloXIII)
+  BIND(wd:Q3672313 AS ?chiesa)
+  BIND(wd:Q1896616 AS ?stileGoticoRomano)
+
+} 
+</code></pre>
+	<p>
+	In this case the properties are fine, but it is intresting to notice that Gemini affirms that we cannot use a <strong>CONSTRUCT</strong> query to push new information directly into Wikidata. To actually get this information reflected in the results of the previous queries, we would need to manually add these statements to the Wikidata item for the Church of Sant'Agostino (Q3672313). It also explained how to do this:
+<br>
+<p> <p style="text-align: center;">
+	<img src="images/chi-gem4.jpg" width="700"> 
+	<br>
+	</p>
+	
+<br>
+
+<hr class="section-divider">
+    <h2 id="construct-query" class="anchor-offset">&#9989 Correct CONSTRUCT query and triples</h2>
+    <br>
+    <p>In conclusion, I can say that the LLMs help in building the structure for a <strong class="highlighted-strong">CONSTRUCT</strong> query, but their output should always be verified and in this particular case I had to write the queries manually in order to test them. 
+    <br>
+	<iframe style="width: 60vw; height: 30vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0A%0ACONSTRUCT%20%7B%0A%20%20wd%3AQ3672313%20wdt%3AP571%20wd%3AQ7049%20.%0A%20%20wd%3AQ3672313%20wdt%3AP149%20wd%3AQ1896616%20.%0A%7D%0AWHERE%20%7B%0A%20%20BIND(wd%3AQ3672313%20AS%20%3Fchiesa)%0A%20%20BIND(wd%3AQ7049%20AS%20%3FsecoloXIII)%0A%20%20BIND(wd%3AQ3672313%20AS%20%3Fchiesa)%0A%20%20BIND(wd%3AQ1896616%20AS%20%3FstileGoticoRomano)%0A%0A%7D%20%0A" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+<br>
+
+<div class="internal-nav-1">
+  <p><a href="#arch-title" class="no-underline-link">Get back at the beginning of the page</a></p>
+</div> 
+
+<br>
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover"" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+	
+  </main>
+
+</body>
+</html>

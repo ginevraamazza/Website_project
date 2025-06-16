@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H: SPARQL Queries</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+  <main>
+    <br>
+    <br>
+    <h1 id="arch-title" class="anchor-offset">SPARQL Queries</h1>
+	<br>
+    <br>
+	<p> This page shows the SPARQL queries used to extract information about historical monuments in Rimini. </p> 
+    <h2>&#128269 SELECT Query</h2>
+    <br>
+	<br>
+	<p> We started by investigating the monuments in Rimini which are quite famous but not so well described in Wikidata, so we used this query with <strong class="highlighted-strong">SELECT</strong> to find all the monuments in Rimini 
+	and we <strong class="highlighted-strong">LIMITED</strong> the results to 100.</p>
+<pre class="code-frame" style="max-width: 700px;"><code>
+	PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+	PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+	PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+	<strong>SELECT </strong> <strong>DISTINCT</strong> *
+	<strong>WHERE</strong> { 
+		?monuments wdt:P17 wd:Q38;
+                           wdt:P131 wd:Q13369;
+                           wdt:P1435 wd:Q26971668;
+                           rdfs:label ?monument_name .
+		?monuments wdt:P131 ?moncity .
+		?moncity rdfs:label ?city .
+		FILTER (lang(?monument_name) = "it")
+		FILTER (lang(?city) = "it")
+	   }
+	<strong>LIMIT</strong> 100
+	</code></pre>
+	<br>	
+	<p>
+		<a href="https://query.wikidata.org/embed.html#PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0A%09PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0A%09PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0A%09SELECT%20%20DISTINCT%20*%0A%09WHERE%20%7B%20%0A%09%09%3Fmonuments%20wdt%3AP17%20wd%3AQ38%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP131%20wd%3AQ13369%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP1435%20wd%3AQ26971668%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%09%09%3Fmonuments%20wdt%3AP131%20%3Fmoncity%20.%0A%09%09%3Fmoncity%20rdfs%3Alabel%20%3Fcity%20.%0A%09%09FILTER%20%28lang%28%3Fmonument_name%29%20%3D%20%22it%22%29%0A%09%09FILTER%20%28lang%28%3Fcity%29%20%3D%20%22it%22%29%0A%09%20%20%20%7D%0A%09%09LIMIT%20100" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    <br>
+    <h2>&#128269 SELECT and FILTER (REGEX) Query</h2>
+    <br>
+	<br>
+	<p> Then we used this query <strong class="highlighted-strong">FILTERING</strong> all the monuments in Rimini that we decided to enrich: 
+	the Arch of Augustus, Tiberio's bridge, the Malatestan Temple, the Domus del Chirurgo, and Sant’Agostino's church. 
+    <br>
+	<pre class="code-frame" style="max-width: 700px;"><code>
+	PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+	PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+	PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+	SELECT DISTINCT *
+	WHERE { 
+		  ?monuments wdt:P17 wd:Q38;
+				  wdt:P131 wd:Q13369;
+				  wdt:P1435 wd:Q26971668;
+				  rdfs:label ?monument_name .
+		  ?monuments wdt:P131 ?moncity .	
+		  ?moncity rdfs:label ?city .
+	FILTER (lang(?monument_name) = "it")
+	FILTER (lang(?city) = "it")
+	<strong>FILTER</strong> (
+                  <strong>REGEX</strong>(?monument_name, "Arco", "i") ||
+                  <strong>REGEX</strong>(?monument_name, "Tiberio", "i") ||
+                  <strong>REGEX</strong>(?monument_name, "Malatestiano", "i") ||
+                  <strong>REGEX</strong>(?monument_name, "Agostino", "i") ||
+                  <strong>REGEX</strong>(?monument_name, "Domus", "i")
+  )
+}
+    </code></pre>
+	<br>
+	<p>
+		<a href="https://query.wikidata.org/embed.html#%09PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0A%09PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0A%09PREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0A%09SELECT%20DISTINCT%20*%0A%09WHERE%20%7B%20%0A%09%09%09%09%3Fmonuments%20wdt%3AP17%20wd%3AQ38%3B%0A%09%09%09%09%09%09%09%09wdt%3AP131%20wd%3AQ13369%3B%0A%09%09%09%09%09%09%09%09wdt%3AP1435%20wd%3AQ26971668%3B%0A%09%09%09%09%09%09%09%20%20%20%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%09%09%09%09%3Fmonuments%20wdt%3AP131%20%3Fmoncity%20.%09%0A%09%09%09%09%3Fmoncity%20rdfs%3Alabel%20%3Fcity%20.%0A%09FILTER%20%28lang%28%3Fmonument_name%29%20%3D%20%22it%22%29%0A%09FILTER%20%28lang%28%3Fcity%29%20%3D%20%22it%22%29%0A%09FILTER%20%28%0A%20%20%20%20REGEX%28%3Fmonument_name%2C%20%22Arco%22%2C%20%22i%22%29%20%7C%7C%0A%20%20%20%20REGEX%28%3Fmonument_name%2C%20%22Tiberio%22%2C%20%22i%22%29%20%7C%7C%0A%20%20%20%20REGEX%28%3Fmonument_name%2C%20%22Malatestiano%22%2C%20%22i%22%29%20%7C%7C%0A%20%20%20%20REGEX%28%3Fmonument_name%2C%20%22Agostino%22%2C%20%22i%22%29%20%7C%7C%0A%20%20%20%20REGEX%28%3Fmonument_name%2C%20%22Domus%22%2C%20%22i%22%29%0A%20%20%29%0A%7D%0A" 
+		target="_blank" rel="noopener noreferrer" class="no-underline-link">
+		&#x1F517 Let's see the results
+		</a>
+	</p>
+    <br>
+   	<h2 id="previous-query" class="anchor-offset">&#128269 UNION Query	</h2>
+    <br>
+	<br>
+<p> When identifying suitable IDs for our monuments, we began considering valuable properties and objects for enrichment that could be suitable for all the monuments. 
+	We found the <strong><a href="https://www.wikidata.org/wiki/Q10285" class="no-underline-link"</a> Colosseum entity</a></strong> on Wikidata, a significant Italian monument with a more comprehensive description than our own. 
+	By examining some of its properties, we identified several of interest and investigated whether our monuments already possessed them.
+    We used a <strong class="highlighted-strong">UNION</strong> query to determine if our monuments included the following properties: inauguration date (<a href="https://www.wikidata.org/wiki/Property:P571" class="no-underline-link"</a>P571</a>), construction material (<a href="https://www.wikidata.org/wiki/Property:P186" class="no-underline-link"</a>P186</a>), 
+	architectural style (<a href="https://www.wikidata.org/wiki/Property:P149" class="no-underline-link"</a>P149</a>), and eponym (<a href="https://www.wikidata.org/wiki/Property:P138" class="no-underline-link"</a>p138</a>), the individual or entity after whom the monument is named. 
+	Given that the Colosseum featured all these properties, we considered them essential for thoroughly describing any cultural monument.
+ </p>
+    <br>
+	<pre class="code-frame" style="max-width: 900px;"><code>	
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+SELECT DISTINCT *
+WHERE {
+   VALUES ?monuments
+   { wd:Q1072853 wd:Q3672313 wd:Q2063557 wd:Q3713399 wd:Q948080 wd:Q1268593 }
+  ?monuments rdfs:label ?monument_name .
+  { ?monuments wdt:P1435 wd:Q26971668 . }  # we add this “condition” because if an entity has 
+					     none of the following properties, then it would
+                                             not appear in the results. 
+  <strong>UNION</strong>
+  { ?monuments wdt:P571 ?inauguration_date . }
+  <strong>UNION</strong>
+  { ?monuments wdt:P186 ?constrmaterial . }
+  <strong>UNION</strong>
+  { ?monuments wdt:P149 ?archstyle . }
+  <strong>UNION</strong>
+  { ?monuments wdt:P138 ?namedafter . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+  FILTER (lang(?monument_name) = "it")
+}
+<strong>ORDER BY</strong> ?monument_name
+    </code></pre>
+	<br>
+	<p> &#x1F517 Let's see the results: </p>
+	<iframe style="width: 95vw; height: 70vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0ASELECT%20DISTINCT%20*%0AWHERE%20%7B%0A%20%20%20VALUES%20%3Fmonuments%0A%20%20%20%7B%20wd%3AQ1072853%20wd%3AQ3672313%20wd%3AQ2063557%20wd%3AQ3713399%20wd%3AQ1268593%20%7D%0A%20%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20.%0A%20%20%7B%20%3Fmonuments%20wdt%3AP1435%20wd%3AQ26971668%20.%20%7D%20%20%23%20we%20add%20this%20%E2%80%9Ccondition%E2%80%9D%20because%20if%20an%20entity%20has%20%0A%09%09%09%09%09%20%20%20%20%20%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP571%20%3Finauguration_date%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP186%20%3Fconstrmaterial%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP149%20%3Farchstyle%20.%20%7D%0A%20%20UNION%0A%20%20%7B%20%3Fmonuments%20wdt%3AP138%20%3Fnamedafter%20.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22it%22.%20%7D%0A%20%20FILTER%20(lang(%3Fmonument_name)%20%3D%20%22it%22)%0A%7D%0AORDER%20BY%20%3Fmonument_name" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    <br>
+	<br>
+    <p> As we noticed from the table some monuments already have some of the properties while others don't. </p>
+    <br>
+    <h2>&#128269 OPTIONAL Query</h2>
+    <br>
+    <p>This query shows the same table but way tidier thanks to the <strong class="highlighted-strong">OPTIONAL</strong> function, allowing us to have a clearer idea of which properties are missing from which monument.</p>
+	<pre class="code-frame" style="max-width: 900px;"><code>
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+SELECT DISTINCT ?monuments ?monument_name ?city (YEAR(?inauguration_date) AS ?inauguration_year) ?material ?style ?eponym
+WHERE {
+  VALUES ?monuments
+  { wd:Q1072853 wd:Q2063557 wd:Q3713399 wd:Q948080 wd:Q1268593 wd:Q3672313 }
+  ?monuments rdfs:label ?monument_name ;
+             wdt:P131 ?moncity .
+  FILTER(LANG(?monument_name) = "it")
+  <strong>OPTIONAL</strong> { ?monuments wdt:P571 ?inauguration_date. }
+  <strong>OPTIONAL</strong> { ?monuments wdt:P186 ?constrmaterial. }
+  <strong>OPTIONAL</strong> { ?monuments wdt:P149 ?archstyle. }
+  <strong>OPTIONAL</strong> { ?monuments wdt:P138 ?namedafter. }
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en,it" .
+    ?moncity rdfs:label ?city .
+    ?constrmaterial rdfs:label ?material .
+    ?archstyle rdfs:label ?style .
+    ?namedafter rdfs:label ?eponym .
+  }
+}
+<strong>ORDER BY</strong> ?monument_name
+</code></pre>
+<br>
+
+<p> &#x1F517 Let's see the results: </p>
+<iframe style="width: 95vw; height: 60vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20wikibase%3A%20%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0ASELECT%20DISTINCT%20%3Fmonuments%20%3Fmonument_name%20%3Fcity%20(YEAR(%3Finauguration_date)%20AS%20%3Finauguration_year)%20%3Fmaterial%20%3Fstyle%20%3Feponym%0AWHERE%20%7B%0A%20%20VALUES%20%3Fmonuments%0A%20%20%7B%20wd%3AQ1072853%20wd%3AQ2063557%20wd%3AQ3713399%20wd%3AQ1268593%20wd%3AQ3672313%20%7D%0A%20%20%3Fmonuments%20rdfs%3Alabel%20%3Fmonument_name%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20wdt%3AP131%20%3Fmoncity%20.%0A%20%20FILTER(LANG(%3Fmonument_name)%20%3D%20%22it%22)%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP571%20%3Finauguration_date.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP186%20%3Fconstrmaterial.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP149%20%3Farchstyle.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fmonuments%20wdt%3AP138%20%3Fnamedafter.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22%20.%0A%20%20%20%20%3Fmoncity%20rdfs%3Alabel%20%3Fcity%20.%0A%20%20%20%20%3Fconstrmaterial%20rdfs%3Alabel%20%3Fmaterial%20.%0A%20%20%20%20%3Farchstyle%20rdfs%3Alabel%20%3Fstyle%20.%0A%20%20%20%20%3Fnamedafter%20rdfs%3Alabel%20%3Feponym%20.%0A%20%20%7D%0A%7D%0AORDER%20BY%20%3Fmonument_name" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+<br>
+  </main>
+<p> We noticed that some monuments such as the Malatestan Temple just lack a few properties, while others, for example the Arch of Augustus or the Domus del Chirurgo require more enrichment. </p>
+<br>
+<div class="internal-nav-1">
+  <p><a href="#arch-title" class="no-underline-link">Get back at the beginning of the page</a></p>
+</div> 
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+</body>
+</html>

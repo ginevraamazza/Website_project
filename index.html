@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project KE4H</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+ <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="sparqlqueries.html">SPARQL Queries</a></li>
+      <li>
+        <a href="#">Monuments</a>
+        <ul>
+          <li><a href="arcodaugusto.html">Arco d'Augusto</a></li>
+          <li><a href="tempiomalatestiano.html">Tempio Malatestiano</a></li>
+          <li><a href="domusdelchirurgo.html">Domus del Chirurgo</a></li>
+          <li><a href="ponteditiberio.html">Ponte di Tiberio</a></li>
+          <li><a href="chiesadisantagostino.html">Chiesa di Sant'Agostino</a></li>
+        </ul>
+      </li>
+      <li><a href="facedchallenges.html">Faced Challenges</a></li>
+      <li><a href="conclusions.html">Conclusions</a></li>
+    </ul>
+ </nav>
+  <main>
+    <br>
+    <br>
+    <h1 id="arch-title" class="anchor-offset">KE4H final project on the semantic enrichment <br> of Rimini’s monument entities in Wikidata </h1>
+    <br>
+    <br>
+    <br>
+    <h2>Abstract</h2>
+    <br>
+    <p> Welcome to our <strong><a href="https://www.unibo.it/it/studiare/insegnamenti-competenze-trasversali-moocs/insegnamenti/insegnamento/2024/502752" class="no-underline-link">KE4H</a></strong> project, an exploration and enrichment of the entities representing <strong><a href="https://en.wikipedia.org/wiki/Rimini" class="no-underline-link">Rimini</a></strong>’s cultural landmarks through the framework of the <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link"</a> Wikidata</a></strong> <strong><a href="https://en.wikipedia.org/wiki/Knowledge_graph" class="no-underline-link"</a> Knowledge Graph</a></strong>.
+Although Wikidata is one of the most extensive open knowledge bases, we found that several important monuments in Rimini, including the <strong><a href="arcodaugusto.html#arch-title" class="no-underline-link">Arch of Augustus</a></strong>, the <strong><a href="tempiomalatestiano.html#arch-title" class="no-underline-link">Malatesta Temple</a></strong>, 
+the <strong><a href="ponteditiberio.html#arch-title" class="no-underline-link">Tiberius Bridge</a></strong>, the
+<strong><a href="chiesadisantagostino.html#arch-title" class="no-underline-link">Sant’Agostino's church</a></strong>, and the <strong><a href="domusdelchirurgo.html#arch-title" class="no-underline-link">Domus del Chirurgo</a></strong>, lacked fundamental information. 
+Basic facts such as architectural style, building materials, inscriptions, or official websites were often missing or incomplete.   
+<br>
+<br>
+To bridge these semantic gaps, we leveraged a combination of technologies and tools. 
+Using <strong><a href="https://query.wikidata.org" class="no-underline-link"> SPARQL queries</a></strong>, we analyzed the current state of the data on Wikidata. 
+Then, with the help of <strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link"> Large Language Models</a></strong> (LLMs) like <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong>, <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a> </strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini" class="no-underline-link"</a>Gemini</a></strong>, we retrieved and generated missing RDF triples, following Wikidata’s ontology. 
+All model-generated content was manually corrected in order to have final well-constructed triples that can be potentially added to the entities.
+<br>
+<br>
+The project is organized as a website built using <strong><a href="https://en.wikipedia.org/wiki/Notepad%2B%2B" class="no-underline-link"</a>Notepad++</a></strong> and <strong><a href="https://pages.github.com" class="no-underline-link github-pages-link-hover"> GitHub Pages</a></strong>, and it’s divided into several sections: <strong><a href="index.html#arch-title" class="no-underline-link">Home</a></strong>, <strong><a href="methodology.html#arch-title" class="no-underline-link">Methodology</a></strong>, 
+<strong><a href="sparqlqueries.html#arch-title" class="no-underline-link">SPARQL Queries</a></strong>, Monuments, <strong><a href="facedchallenges.html#arch-title" class="no-underline-link">Faced Challenges</a></strong>, and <strong><a href="conclusions.html#arch-title" class="no-underline-link">Conclusions</a></strong>. 
+</p>
+	<hr class="section-divider">
+	<section class="team-section">
+  <h2 class="section-title">Team Members &#128109</h2>
+  <div class="team-grid">
+  <div class="team-card">Ginevra Mazza</div>
+  <div class="team-card">Francesca Zanellato</div>
+  <div class="team-card">Valeria Angeloni</div>
+
+  <div class="center-row">
+    <div class="team-card">Serena Pascarella</div>
+    <div class="team-card">Rebecca Antonuccio</div>
+  </div>
+</div>
+</section>
+<br>
+<br>
+<div id="footer_wrap">
+ <footer class="inner">
+        <p style="color: white; font-size: 1.1em;">Website published with <a href="https://pages.github.com" class="no-underline-link github-pages-link-hover" style="color: white;"> GitHub Pages</a></p>
+      </footer>
+    </div>
+	
+  </main>
+</body>
+</html>

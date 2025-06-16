@@ -1,0 +1,436 @@
+/* Stili generali */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding-top: 60px; 
+  background-color: #f5f5f5
+}
+
+/* Menu principale */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #6A0000;
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  position: relative;
+  font-family: "Times New Roman", Times, serif; /* Font Times New Roman */
+  color: white; 
+  text-decoration: none; 
+  padding: 1.2px 0; 
+  display: block; 
+  font-size: 1.18em; 
+  font-weight: normal;
+  transition: color 0.3s ease, background-color 0.3s ease; 
+}
+
+nav > ul > li {
+  margin-right: 1rem;
+}
+
+nav a {
+  display: block;
+  padding: 14px 16px;
+  color: white;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+nav li:hover > a {
+  background-color: #8B0000;
+}
+
+/* Menu a tendina */
+nav ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #8B0000;
+  padding: 0;
+  min-width: 180px;
+  flex-direction: column;
+}
+
+nav ul li:hover > ul {
+  display: flex;
+}
+
+nav ul ul li a {
+  padding: 8px 15px; 
+  font-size: 0.8em;
+}
+
+nav ul ul a:hover {
+  background-color: #6A0000;
+}
+
+/* Contenuto principale */
+main {
+  padding: 20px;
+}
+
+h1 {
+  font-family: "Times New Roman", Times, serif; 
+  font-size: 3.5em;
+  font-weight: 900;
+  color: #8B0000;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+h2 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 2.5em;
+	font-weight: 500;
+	color: #8B0000;
+	text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+	margin-left: 20px
+}
+
+.wd-id a {
+    all: unset; 
+    font-size: 0.5em;
+    margin-left: 0.75em;
+    font-family: 'Playfair Display', serif;
+    color: #444444;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+h3 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2em;
+  font-weight: 500;
+  color: #8B0000;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  margin-left: 20px
+}
+
+h4 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 1.5em; 
+  font-weight: 500;
+  color: #5C4033; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-left: 20px;
+  margin-left: 80px;
+}
+
+.investigato-da {
+    text-align: left; 
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+	font-style: italic; 
+    color: #555555; 
+    font-size: 1.2em; 
+    margin-left: 0; 
+    padding-left: 0; 
+}
+
+pre code {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    border-radius: 10px;
+    padding: 1em;
+    display: block;
+}
+
+.my-custom-paragraph {
+	font-family: 'Playfair Display', serif;
+	color: #333333;
+	background-color: #e0f0ff;
+	padding: 15px;
+	border-radius: 10px;
+	width: fit-content;
+	margin: 20px auto;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	}
+		
+p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em; 
+  line-height: 1.6; 
+  color: #333; 
+  margin-bottom: 1em; 
+  text-align: justify; 
+  max-width: 750px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+/* Un piccolo extra: stile per il primo rigo del paragrafo se vuoi un effetto tipo "capoverso" */
+p:first-of-type {
+  text-indent: 0; /* Rimuove l'indentazione dal primo paragrafo se non la vuoi */
+}
+
+/* Stile per un paragrafo all'interno di un contenitore specifico, se necessario */
+.content-section p {
+  /* Puoi specificare stili leggermente diversi qui se i paragrafi sono in sezioni diverse */
+  padding: 0 15px; /* Aggiunge un po' di spazio ai lati, utile su schermi piccoli */
+}
+
+.centered-image-with-border {
+  display: block; /* Essenziale per poter usare i margini automatici */
+  margin-left: auto; /* Centra l'immagine orizzontalmente */
+  margin-right: auto; /* Centra l'immagine orizzontalmente */
+  width: 400px; /* Imposta una larghezza per l'immagine */
+  height: auto; /* Mantieni le proporzioni dell'immagine */
+  border: 5px solid #8B4513; /* Cornice: 5px di spessore, solida, color marrone terra */
+  padding: 5px; /* Spazio tra l'immagine e la cornice */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Un'ombra leggera per farla risaltare */
+  border-radius: 5px; /* Angoli leggermente arrotondati per un tocco di morbidezza */
+}
+
+.no-underline-link {
+  text-decoration: none; /* Rimuove la sottolineatura */
+  color: #8B0000; /* Imposta il colore del testo */
+}
+
+/* Se vuoi un effetto quando il mouse passa sopra (hover) */
+.no-underline-link:hover {
+  color: #0056b3; /* Un blu più scuro quando il mouse è sopra */
+  text-decoration: underline; /* Potresti anche decidere di rimettere la sottolineatura solo al hover */
+}
+
+.github-pages-link-hover:hover {
+  color: #87cefa !important; /* Blu chiaro (SkyBlue). !important per garantire che sovrascriva stili inline */
+  text-decoration: underline; /* Opzionale: riaggiungi sottolineatura all'hover */
+}
+
+.section-divider {
+  border: none; /* Rimuove il bordo predefinito del browser */
+  border-top: 2px solid #ccc; /* Crea un bordo superiore come una riga */
+  color: #ccc; 
+  background-color: #ccc; /* Colore di sfondo che diventa la riga visibile */
+  height: 2px; /* Altezza della riga */
+  margin: 40px auto; /* Spazio sopra e sotto la riga, e la centra */
+  width: 60%; /* Larghezza della riga (puoi usare px, %, o rem) */
+  opacity: 0.7; /* Rende la riga leggermente trasparente per un effetto più morbido */
+}
+
+.code-frame { /* rettangolo per mettere le queries */
+  background-color: #FFFFFF; /* Sfondo leggermente grigio chiaro per distinguere il blocco */
+  border: 1px solid #ddd; /* Bordo sottile e grigio chiaro */
+  border-radius: 5px; /* Angoli leggermente arrotondati */
+  padding: 3px; /* Spazio interno tra il bordo e il codice */
+  padding-left: 50px;
+  padding-right: 100px;
+  margin: 10px auto; /* Margine esterno per staccarlo dagli altri contenuti e centrarlo */
+  max-width: 800px; /* Limita la larghezza massima del blocco di codice */
+  overflow-x: auto; /* Aggiunge una barra di scorrimento orizzontale se il codice è troppo lungo */
+  font-family: Consolas, "Courier New", Courier, monospace; /* Un font monospaziato per il codice */
+  font-size: 0.95em; /* Dimensione del font leggermente più piccola per il codice */
+  line-height: 1.4; /* Interlinea per il codice */
+  color: #333; /* Colore del testo per il codice */
+}
+
+/* Stile specifico per il tag <code> all'interno della cornice (opzionale, ma buona pratica) */
+.code-frame code {
+  display: block; /* Assicura che il codice sia un blocco e rispetti il padding */
+  white-space: pre; /* Mantiene gli spazi bianchi e gli a capo come nel sorgente */
+  /* white-space: pre-wrap; */ /* Se vuoi che il codice vada a capo automaticamente se è troppo lungo */
+}
+
+/* Stile per il tag <strong> all'interno del codice, se vuoi che sia in grassetto e magari con un colore specifico */
+.code-frame code strong {
+  color: #c7254e; /* Un rosso/bordeaux per le parole chiave, se vuoi */
+  font-weight: bold;
+}
+ .highlighted-strong {
+            color: #c7254e; /* Rosso scuro */
+            font-family: Consolas, "Courier New", Courier, monospace;
+            /* Aggiungi qui altre proprietà se vuoi, es. font-size, text-shadow */
+        }
+/* Stile per il contenitore esterno del footer (sezione con sfondo esteso) */
+#footer_wrap {
+  background-color: #6A0000; /* Rosso scuro*/
+  padding: 15px 0; /* Spazio sopra e sotto il contenuto del footer */
+  text-align: center; /* Centra il testo all'interno del footer */
+}
+
+/* Stile per il contenitore interno che limita la larghezza del contenuto */
+footer.inner {
+  max-width: 960px; /* Limita la larghezza massima del contenuto del footer (adatta a schermi grandi) */
+  margin: 0 auto; /* Centra il contenitore interno all'interno di footer_wrap */
+  padding-top: 10px;    /* <<-- Aumentato il padding superiore (da 0 a 10px, o un valore leggermente più alto) */
+  padding-right: 20px;  /* Mantenuto il padding destro */
+  padding-bottom: 0px;  /* Mantenuto il padding inferiore (se c'era un valore, ora 0px per il testo in basso) */
+  text-align: left;
+}
+.anchor-offset {
+  scroll-margin-top: 80px; /* o l'altezza del tuo nav */
+}
+.internal-nav {
+    margin: 20px;
+}
+
+/* Stili per il titolo "Go directly to:" */
+.internal-nav .nav-title {
+    font-family: 'Playfair Display', serif;
+    color: #000000; /* Nero */
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    line-height: 1.6; /* Interlinea per il titolo */
+}
+
+/* Stili per la lista numerata (ol) */
+.internal-nav ol {
+    list-style-type: decimal; /* Numeri decimali (1, 2, 3...) */
+    padding-left: 20px; /* Spazio per i numeri dell'elenco */
+    margin: 0;
+}
+
+/* Stili per ogni elemento della lista (li) - principalmente per il margine tra loro */
+.internal-nav ol li {
+    margin-bottom: 8px; /* Spazio tra gli elementi del menù */
+}
+
+/* QUESTO È IL SELETTORE FONDAMENTALE: Applica lo stile ai link all'interno dell'elenco */
+.internal-nav ol li a {
+    font-family: 'Playfair Display', serif; /* Il tuo carattere desiderato */
+    color: #8B0000; /* Il tuo colore rosso scuro */
+    font-size: 1.2em; /* Dimensione del testo */
+    font-weight: bold;
+    text-decoration: none; /* Nessuna sottolineatura */
+    line-height: 1.6; /* Aumenta l'interlinea all'interno di ogni riga del link */
+    display: inline-block; /* Importante per far funzionare bene line-height sui link */
+}
+
+/* Stile al passaggio del mouse sui link */
+.internal-nav ol li a:hover {
+    color: #B22222; /* Un rosso leggermente diverso al passaggio del mouse */
+}
+.internal-nav ol li::marker {
+    font-family: 'Playfair Display', serif;
+    color: #8B0000;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.internal-nav-1 a:hover {
+    color: #B22222; /* Un rosso leggermente diverso al passaggio del mouse */
+}
+.internal-nav-1 a {
+    font-family: 'Playfair Display', serif;
+    color: #8B0000;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.section-title {
+  text-align: center;
+  font-size: 2.75rem;
+  color: #8B0000;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.team-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 15px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  text-align: center;
+  min-width: 250px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.center-row {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.query-keyword {
+  display: inline-block;
+  background-color: #ddd;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 0.9em;
+  margin: 2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  white-space: nowrap;
+}
+
+.prompting-style-table {
+  width: 90%; /* Make the table take up the full width */
+  border-collapse: collapse; /* Collapse borders for a cleaner look */
+  font-family: 'Playfair Display', serif; /* A clean, readable font */
+  margin: 20px auto 0 auto;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners for the table */
+  overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+.table-container {
+  display: flex; /* Use flexbox for easy centering */
+  justify-content: center; /* Horizontally center content */
+  align-items: flex-start; /* Align content to the start vertically (optional, good default) */
+  width: 100%; /* Ensure the container takes full width to allow centering */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.prompting-style-table thead tr {
+  background-color: #6A0000; /* Red header background */
+  color: white; /* White text for header */
+  text-align: center; /* Align header text to the left */
+}
+
+.prompting-style-table th,
+.prompting-style-table td {
+  padding: 12px 15px; /* Padding inside cells */
+  border: 1px solid #ddd; /* Light grey border for cells */
+  text-align: center
+}
+
+.prompting-style-table td:first-child {
+  font-weight: bold; /* Make the prompting style names bold */
+}
+.prompting-style-table tbody td:nth-child(2) {
+  font-size: 0.8em; /* Adjust this value as needed */
+}
+
+.prompting-style-table td:first-child {
+  font-weight: bold;
+  /* If you had an inline style for text-align: left on the first column, it would still override this general setting */
+}
