@@ -436,7 +436,7 @@ footer.inner {
 }
 
 .title-container {
-  background-image: url('../images/pippo.jpg');
+  background-image: url('/Website_project/images/pippo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
