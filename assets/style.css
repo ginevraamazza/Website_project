@@ -434,3 +434,12 @@ footer.inner {
   font-weight: bold;
   /* If you had an inline style for text-align: left on the first column, it would still override this general setting */
 }
+
+.title-container {
+  background-image: url('../images/pippo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0px;
+  text-align: center;
+}
