@@ -139,7 +139,7 @@ PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
     <p>
 		<a href="https://query.wikidata.org/embed.html#SELECT%20%3FchurchLabel%20%3FnamedAfterLabel%20%3Fwebsite%20%3FarchitecturalStyleLabel%20%3Finception%20%3FheritageDesignationLabel%20%3FdedicatedToLabel%20WHERE%20%7B%0A%20%20BIND%28wd%3AQ3672313%20AS%20%3Fchurch%29%20%23%20Binds%20the%20specific%20entity%20to%20a%20variable%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%2Cit%22.%20%7D%20%23%20Prioritizes%20English%20labels%2C%20then%20Italian%0A%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP138%20%3FnamedAfter.%20%7D%20%20%20%20%20%20%20%20%20%23%20P138%3A%20named%20after%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP856%20%3Fwebsite.%20%7D%20%20%20%20%20%20%20%20%20%20%20%20%23%20P856%3A%20official%20website%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP149%20%3FarchitecturalStyle.%20%7D%20%23%20P149%3A%20architectural%20style%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP571%20%3Finception.%20%7D%20%20%20%20%20%20%20%20%20%23%20P571%3A%20inception%20%28when%20it%20was%20built%29%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%20%23%20P1435%3A%20heritage%20designation%0A%20%20OPTIONAL%20%7B%20%3Fchurch%20wdt%3AP144%20%3FdedicatedTo.%20%7D%20%20%20%20%20%20%20%23%20P144%3A%20dedicated%20to%0A%7D" 
 		target="_blank" rel="noopener noreferrer" class="no-underline-link">
-		馃敆 Let's see the results
+	        &#x1F517 Let's see the results
 		</a>
 	</p>
     <br>
@@ -186,7 +186,7 @@ WHERE {
 } 
 </code></pre>
 	<p>
-	In this case the properties are fine, but it is intresting to notice that Gemini affirms that we cannot use a <strong>CONSTRUCT</strong> query to push new information directly into Wikidata. To actually get this information reflected in the results of the previous queries, we would need to manually add these statements to the Wikidata item for the Church of Sant'Agostino (Q3672313). It also explained how to do this:
+	In this case the properties are fine, but it is intresting to notice that Gemini affirms that we cannot use a <strong class="highlighted-strong">CONSTRUCT</strong> query to push new information directly into Wikidata. To actually get this information reflected in the results of the previous queries, we would need to manually add these statements to the Wikidata item for the Church of Sant'Agostino (Q3672313). It also explained how to do this:
 <br>
 <p> <p style="text-align: center;">
 	<img src="images/chi-gem4.jpg" width="700"> 
