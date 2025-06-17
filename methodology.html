@@ -36,16 +36,16 @@
     <div class="internal-nav">
   <div class="nav-title">Go directly to:</div>
   <ol> 
-	<li><a href="#why-wikidata">Why Wikidata?</a></li>
-    <li><a href="#tools-used">Tools used</a></li>
+	<li><a href="#why-wikidata">&#128200 Why Wikidata?</a></li>
+    <li><a href="#tools-used">&#128295 Tools used</a></li>
   </ol>
  </div>
   <div class="internal-nav">
   <div class="nav-title">The objectives are:</div>
   <ol> 
-	<li><a href="#queries">Using queries to investigate the KG</a></li>
-    <li><a href="#use-of-llms">Using LLMs to enrich the KG</a></li>
-	<li><a href="#construct">The construction of new triples</a></li>
+	<li><a href="#queries">&#128269 Using queries to investigate the KG</a></li>
+    <li><a href="#use-of-llms">&#129302 Using LLMs to enrich the KG</a></li>
+	<li><a href="#construct">&#127942 The construction of new triples</a></li>
   </ol>
 </div>
     <br>
@@ -68,7 +68,7 @@
 	- <strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link"> Large Language Models</a></strong> (LLMs) including <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong>, <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a></strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini" class="no-underline-link"</a>Gemini</a></strong> were integrated into the workflow to both assist in query construction and generate enriched knowledge in natural language. 
 	<br>
 	<br>
-	- <strong><a href="https://en.wikipedia.org/wiki/Notepad%2B%2B" class="no-underline-link"</a>Notepad++</a></strong> was used for manual <strong><a href="https://en.wikipedia.org/wiki/HTML" class="no-underline-link"</a>HTML</a></strong> and code editing during website development while 
+	- <strong><a href="https://en.wikipedia.org/wiki/Notepad%2B%2B" class="no-underline-link"</a>Notepad++</a></strong> was the application that we mainly used for manual <strong><a href="https://en.wikipedia.org/wiki/HTML" class="no-underline-link"</a>HTML</a></strong> and code editing during website development while 
 	<strong><a href="https://en.wikipedia.org/wiki/Windows_Notepad" class="no-underline-link"</a>Notepad</a></strong> was frequently used to modify URLs from query results before embedding them into the HTML code. This was because these URLs often contained symbols that are not acceptable in HTML without proper encoding. Notepad's simplicity made it a quick tool for finding and replacing these characters.
 	<br>
 	<br>
@@ -77,7 +77,7 @@
 	<hr class="section-divider">
     <h2 id="queries" class="anchor-offset">&#128269 Queries</h2>
     <br>
-    <p>Our process began with <strong><a href="https://en.wikipedia.org/wiki/SPARQL" class="no-underline-link"</a> SPARQL</a></strong> queries crafted to explore the knowledge graph (KG) and uncover missing data. 
+    <p>Our process began with <strong><a href="https://en.wikipedia.org/wiki/SPARQL" class="no-underline-link"</a> SPARQL</a></strong> queries crafted to explore the knowledge graph and uncover missing data. 
 	<br>
 	<br>
 	To simplify query writing and improve readability, we used <strong class="highlighted-strong">PREFIX</strong> declarations at the start of each query.
@@ -135,8 +135,8 @@
     <p><strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link"> Large Language Models</a></strong> were often asked to assist in building complex queries and were particularly useful when using advanced constructs like nested <strong class="highlighted-strong">OPTIONAL</strong>s or <strong class="highlighted-strong">UNION</strong> patterns.
 	The chatbots were fundamental also for enriching the knowledge graph. 
 	They provided valuable assistance, helping in the building of the necessary <strong class="highlighted-strong">CONSTRUCT</strong> queries that allowed us to populate the graph with new information.
-	Each <strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link">LLM</a></strong> (<strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong>, <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a></strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini" class="no-underline-link"</a>Gemini</a></strong>) received prompts in different formats and produced various responses, some correct, some incorrect that needed human revision.<br><br>
-	We used four prompting techniques while enriching the five monuments, here examplained in a table with a few examples taken from the different pages:</p>
+	Each <strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link">LLM</a></strong> (<strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong>, <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a></strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini" class="no-underline-link"</a>Gemini</a></strong>) received the prompts and produced various responses, some correct, some incorrect that needed human revision.<br><br>
+	We used four prompting techniques while enriching the five monuments, here explained in a table with a few examples taken from the different pages:</p>
 	<div class="table-container">
     <table class="prompting-style-table">
   <thead>
@@ -254,7 +254,7 @@ Can you create a CONSTRUCT query for Wikidata with all this information? Let's t
 	Their outputs were then: <br>
     - Corrected manually (they contained invalid Q-IDs);<br>
     - Compared between models.<br>
-Each page presents the final <strong class="highlighted-strong">CONSTRUCT</strong> query manually corrected with the right subjects, predicate and objects, and the table with the final triples in Turtle format taken directly from Wikidata.
+Each page presents the final <strong class="highlighted-strong">CONSTRUCT</strong> query manually corrected with the right subjects, predicate and objects, and the table with the final triples taken directly from Wikidata.
 <br><br>
 Here is an example taken from the page of the Domus del Chirurgo:</p>
 <iframe style="width: 95vw; height: 40vh; border: none;" src="https://query.wikidata.org/embed.html#PREFIX%20wd%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0ACONSTRUCT%20%7B%0A%20%20%3Fmonument%20wdt%3AP1619%20%3FopeningDate%20.%0A%20%20%3Fmonument%20wdt%3AP366%20%3Fuse%20.%0A%20%20%3Fmonument%20wdt%3AP31%20%3Finstance%20.%0A%20%20%3Fmonument%20wdt%3AP527%20%3FpartOf%20.%0A%7D%0AWHERE%20%7B%0A%20%20BIND(wd%3AQ3713399%20AS%20%3Fmonument)%0A%20%20BIND(%222007%22%5E%5Exsd%3AgYear%20AS%20%3FopeningDate)%0A%20%20BIND(wd%3AQ570116%20AS%20%3Fuse)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(wd%3AQ133444874%20AS%20%3Finstance)%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20BIND(%22Cucchiaio%20di%20Diocle%22%20AS%20%3FpartOf)%0A%7D" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
