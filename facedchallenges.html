@@ -38,18 +38,18 @@
 	<br>
 	<h2>1. &#129300 SPARQL Queries Complexity</h2>
 	<br><br>
-    <p>Formulating SPARQL queries that return precise, meaningful data from Wikidata was not always easy, especially because SPARQL is very sensitive to syntax: 
+    <p>Formulating SPARQL queries that return precise, meaningful data from <strong><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="no-underline-link"</a> Wikidata</a></strong> was not always easy, especially because SPARQL is very sensitive to syntax: 
 	 missing semicolons, full stops, parenthesis or incorrect prefixes can lead to errors that are sometimes hard to debug, and a lot of time is required to correct them. </p>
 	<br>
 	<p>Therefore, we refined use of key constructs like <strong class="highlighted-strong">UNION</strong>, <strong class="highlighted-strong">OPTIONAL</strong>, 
 	<strong class="highlighted-strong">FILTER</strong>, <strong class="highlighted-strong">REGEX</strong> and <strong class="highlighted-strong">CONSTRUCT</strong> to define our data retrieval and construction logic,
-	and we used LLMs to help us with the syntax of the queries (notably to find mistakes within the code).</p><br>
+	and we used <strong><a href="https://en.wikipedia.org/wiki/Large_language_model" class="no-underline-link">LLMs</a></strong> to help us with the syntax of the queries (notably to find mistakes within the code).</p><br>
     <h2>2. &#10060 Mistakes in LLMs outputs</h2>
     <br><br>
-    <p>When prompting ChatGPT, Deep Seek and Gemini to generate RDF triples using the Wikidata ontology, the models often returned incorrect or non-existent Q-IDs.
+    <p>When prompting <strong><a href="https://chatgpt.com/auth/login" class="no-underline-link"</a>Chat GPT</a></strong>, <strong><a href="https://www.deepseek.com/en" class="no-underline-link"</a>Deep Seek</a> </strong> and <strong><a href="https://gemini.google.com/app?hl=itGemini" class="no-underline-link"</a>Gemini</a></strong> to generate RDF triples using the Wikidata ontology, the models often returned incorrect or non-existent Q-IDs.
 	This is part of <strong><a href="https://medium.com/@gcentulani/understanding-hallucination-in-llms-causes-consequences-and-mitigation-strategies-b5e1d0268069" class="no-underline-link"</a> hallucination</a></strong> that occurs within LLMs. 
 	Here is an example of a query proposed by Chat GPT in one of its answers:</p>
-    <pre class="code-frame" style="max-width: 1000px;"><code>
+    <pre class="code-frame" style="max-width: 1000 px;"><code>
 	<strong>SELECT</strong> ?artwork ?artworkLabel WHERE {
 		?artwork wdt:P31/wdt:P279* wd:Q838948 .
 	<strong>VALUES</strong> ?location <s>{ wd:Q351395 }</s> <strong><span style="color:green;">{ wd:Q1268593 } </span></strong>
@@ -74,7 +74,7 @@
     <br>
     <p>Before creating this project, none of us had any prior experience building a website. 
 	<br><br>
-	3.1 We started by using a GitHub template, as they were readily available, but we encountered many difficulties in modifying it to fit our needs (one of the difficulties for example was adding a fixed menu on top). 
+	3.1 We started by using a <strong><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template" class="no-underline-link"</a>Github template</a></strong>, as they were readily available, but we encountered many difficulties in modifying it to fit our needs (one of the difficulties for example was adding a fixed menu on top). 
 	After several attempts, we decided to build it from scratch, getting help with the syntax we didn't know from chatbots. <br><br>
 	3.2 Then to edit our website, some of us used an application called <strong><a href="https://en.wikipedia.org/wiki/Notepad%2B%2B" class="no-underline-link"</a>Notepad++</a></strong> (click <strong><a href="https://notepad-plus-plus.org/downloads/" class="no-underline-link"</a> here<a></strong> to download the most recent version 8.8.1), which was a real game-changer! 
 	Unlike standard Notepad, Notepad++ highlights code with different colors, making it much easier to read, understand, and debug our work. This visual aid significantly streamlined our coding process. <br><br> Here is an example of some code from Notepad++: </p>
